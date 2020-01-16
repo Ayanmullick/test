@@ -1,5 +1,5 @@
 
-<img style="float: right;" src="https://ayn.blob.core.windows.net/github/test2.gif" width="600" height="300">
+<img style="float: right;" src="https://ayn.blob.core.windows.net/github/test2.gif" width="800" height="400">
 
 This is an architecture. M4a. Hello world in the Microsoft Azure Cloud platform. For any application canvas art with is some form of Sportage. In this case we will start with a SQL database. So we have a table in the SQL database with two rows as you can see. The hello world code would reside in Azure functions. 
 
