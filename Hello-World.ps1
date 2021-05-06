@@ -1,4 +1,4 @@
 function Hello-World 
-    {param( [ValidateSet('Green','Red','Blue')] $Color)	#Added parameter vith validateset to test intellisense
+    {param( [ValidateSet('Green','Red','Blue')] $Color)	#Added parameter with validateset to test intellisense
      Write-Host "Hello world!" -Foreground $Color
      }
