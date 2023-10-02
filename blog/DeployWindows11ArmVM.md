@@ -1,6 +1,6 @@
 # Azure PowerShell to deploy Win11 Arm VM
 
-<!--
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/atom-one-dark-reasonable.min.css">
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/powershell.min.js"></script>
@@ -17,7 +17,7 @@
     hljs.highlightElement(document.getElementById("code3"));
   })
 </script>
--->
+
 
 <script>
 fetch("https://raw.githubusercontent.com/Ayanmullick/test/master/AutomationAcc/test1.ps1")
