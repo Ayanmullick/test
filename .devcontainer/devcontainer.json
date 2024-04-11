@@ -1,5 +1,5 @@
 {
-  "image": "ghcr.io/devcontainers/features/powershell:1",
-  "features": {
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {"ghcr.io/devcontainers/features/powershell:1": {}
   }
 }
