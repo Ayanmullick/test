@@ -5,6 +5,8 @@
     },
     "extensions": [
         "ms-vscode.powershell"
-    ]
-   
+    ] //,
+//"forwardPorts": [your-port-numbers-if-any],
+//    "postCreateCommand": "your-command-here-if-you-need-to-run-any-after-creation",
+//    "remoteUser": "your-preferred-remote-user-if-required"
 }
