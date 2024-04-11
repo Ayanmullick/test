@@ -1,5 +1,7 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "features": {"ghcr.io/devcontainers/features/powershell:1": {}
-  }
+    "image": "mcr.microsoft.com/vscode/devcontainers/powershell",
+    "extensions": ["ms-vscode.powershell"],
+    "settings": {
+        "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\7\\pwsh.exe"
+    }
 }
