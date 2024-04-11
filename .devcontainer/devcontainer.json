@@ -1,9 +1,10 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "features": {"ghcr.io/devcontainers/features/powershell:1": {}
-  },
-  "extensions": ["ms-vscode.powershell"],
-    "settings": {
-        "terminal.integrated.shell.linux": "/usr/bin/pwsh"
-    }    
+    "image": "mcr.microsoft.com/azure-powershell:latest",
+    "settings": { 
+        "terminal.integrated.shell.linux": "/bin/pwsh"
+    },
+    "extensions": [
+        "ms-vscode.powershell"
+    ]
+   
 }
