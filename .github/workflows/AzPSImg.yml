@@ -1,0 +1,21 @@
+name: AzPScontainerAction
+on: [workflow_dispatch]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/azure-powershell:latest
+
+    steps:
+      - uses: actions/checkout@v4.1.2
+      - name: Authenticate to Azure
+        shell: pwsh
+        run: |
+          $cred = New-Object System.Management.Automation.PSCredential("${{ vars.PSGHACTIONSCLIENTID }}", (ConvertTo-SecureString -String "${{ secrets.PSGHACTIONSSECRET }}" -AsPlainText -Force))
+          Connect-AzAccount -ServicePrincipal -Credential $cred -Tenant ${{ vars.MULLICKTENANTID }} -Subscription ${{ vars.FTESUBID }}
+          Get-AzResourceGtoup
+
+#-------------------------------------------------------------
+#No need to run azure/powershell@v2 inside the container since it's a PowerShell container.
+
+#  -Command "cd\ ; cd github; Get-childItem -Recurse|select FullName" 
