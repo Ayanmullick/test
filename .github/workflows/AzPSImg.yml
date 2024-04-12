@@ -13,7 +13,7 @@ jobs:
         run: |
           $cred = New-Object System.Management.Automation.PSCredential("${{ vars.PSGHACTIONSCLIENTID }}", (ConvertTo-SecureString -String "${{ secrets.PSGHACTIONSSECRET }}" -AsPlainText -Force))
           Connect-AzAccount -ServicePrincipal -Credential $cred -Tenant ${{ vars.MULLICKTENANTID }} -Subscription ${{ vars.FTESUBID }}
-          Get-AzResourceGtoup
+          Get-AzResourceGroup
 
 #-------------------------------------------------------------
 #No need to run azure/powershell@v2 inside the container since it's a PowerShell container.
