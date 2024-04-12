@@ -1,0 +1,14 @@
+name: ScriptAction
+on: [workflow_dispatch]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/azure-powershell:latest
+
+    steps:
+      - name: ScriptTest with GitHub Script
+        uses: actions/github-script@v7
+        with:
+          script: |
+            require('child_process').exec('pwsh -Command "Get-Process | Select-Object -First 5; Write-Host \\"Hello from PowerShell!\\""', (err, stdout) => console.log(stdout));
