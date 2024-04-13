@@ -1,8 +1,12 @@
 {
     "image": "mcr.microsoft.com/azure-powershell:latest",
     "settings": { 
-        "terminal.integrated.defaultProfile.linux": "pwsh"
-        
+        "terminal.integrated.defaultProfile.linux": "pwsh",
+        "terminal.integrated.profiles.linux": {
+            "PowerShell": {
+                "path": "/opt/microsoft/powershell/7/pwsh"
+                          }
+                                             }
                                 
                 },
     "extensions": [
