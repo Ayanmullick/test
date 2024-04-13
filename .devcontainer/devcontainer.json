@@ -7,11 +7,18 @@
             "settings": {
                 "terminal.integrated.defaultProfile.linux": "pwsh",
                 
-                "workbench.sideBar.location": "right"
-                
+                "workbench.sideBar.location": "right",
+                "editor.multiCursorModifier": "ctrlCmd", "editor.minimap.enabled": false, "editor.accessibilitySupport": "on", "editor.tabCompletion": "on",
+                "editor.snippetSuggestions": "bottom", "editor.suggest.snippetsPreventQuickSuggestions": true, "editor.rulers": [125],
+                "editor.bracketPairColorization.enabled": true, "editor.guides.bracketPairs": "active"
+
             },
-            "extensions": ["ms-vscode.powershell",
-                           "ibm.output-colorizer"]
+            "extensions": 
+            ["ms-vscode.powershell",
+             "ibm.output-colorizer",
+             "ms-azuretools.vscode-azurefunctions","ms-azuretools.vscode-azureresourcegroups","ms-vscode.azure-account", "msazurermtools.azurerm-vscode-tools",
+             "ms-dotnettools.dotnet-interactive-vscode", "ms-dotnettools.vscode-dotnet-runtime","ms-toolsai.jupyter","ms-toolsai.vscode-jupyter-cell-tags"
+            ]
         }
     }
 }
