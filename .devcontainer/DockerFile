@@ -1,0 +1,2 @@
+# install git
+RUN apt install -y git
