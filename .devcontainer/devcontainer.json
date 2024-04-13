@@ -10,7 +10,8 @@
                 "workbench.sideBar.location": "right"
                 
             },
-            "extensions": ["ms-vscode.powershell"]
+            "extensions": ["ms-vscode.powershell",
+                           "ibm.output-colorizer"]
         }
     }
 }
