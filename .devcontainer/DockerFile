@@ -1,2 +1,4 @@
+FROM mcr.microsoft.com/azure-powershell:latest
+USER root
 # install git
 RUN apt install -y git
