@@ -1,7 +1,7 @@
 {
     "name": "AzPSImage",
     "dockerFile": "Dockerfile",
-    //  "image": "mcr.microsoft.com/azure-powershell:latest",
+    "image": "mcr.microsoft.com/azure-powershell:latest",
     "customizations": {
         "vscode": {
             "settings": {
