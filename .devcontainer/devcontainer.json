@@ -7,7 +7,12 @@
             "settings": {
                 "terminal.integrated.defaultProfile.linux": "pwsh",
                 "terminal.integrated.profiles.linux": {
-                    "PowerShell": {"path": "//opt//microsoft//powershell//7//pwsh"}
+                    "PowerShell": {"path": "//opt//microsoft//powershell//7//pwsh"},
+                  
+                "powershell.powerShellDefaultVersion": "PowerShell (x64)",
+                "powershell.scriptAnalysis.enable": true, "powershell.startAutomatically": true, "powershell.enableProfileLoading": true,
+                "powershell.integratedConsole.focusConsoleOnExecute": false, "powershell.integratedConsole.showOnStartup": false
+      
                 
             },
             "extensions": [
