@@ -1,0 +1,138 @@
+2024-10-30T18:35:52.2415115Z Current runner version: '2.320.0'
+2024-10-30T18:35:52.2422591Z Runner name: 'AzureRunnerUbuntu_f6dff4e82654'
+2024-10-30T18:35:52.2423504Z Runner group name: 'Azure Runners'
+2024-10-30T18:35:52.2424553Z Machine name: 'runner'
+2024-10-30T18:35:52.2444431Z ##[group]Operating System
+2024-10-30T18:35:52.2445144Z Ubuntu
+2024-10-30T18:35:52.2445654Z 22.04.5
+2024-10-30T18:35:52.2446142Z LTS
+2024-10-30T18:35:52.2446599Z ##[endgroup]
+2024-10-30T18:35:52.2447091Z ##[group]Runner Image
+2024-10-30T18:35:52.2447643Z Image: ubuntu-22.04
+2024-10-30T18:35:52.2448182Z Version: 20241015.1.0
+2024-10-30T18:35:52.2449350Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20241015.1/images/ubuntu/Ubuntu2204-Readme.md
+2024-10-30T18:35:52.2450860Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20241015.1
+2024-10-30T18:35:52.2451999Z ##[endgroup]
+2024-10-30T18:35:52.2468386Z ##[group]GITHUB_TOKEN Permissions
+2024-10-30T18:35:52.2470438Z Contents: read
+2024-10-30T18:35:52.2471083Z Metadata: read
+2024-10-30T18:35:52.2471519Z ##[endgroup]
+2024-10-30T18:35:52.2474622Z Secret source: Actions
+2024-10-30T18:35:52.2475199Z Prepare workflow directory
+2024-10-30T18:35:52.3154902Z Prepare all required actions
+2024-10-30T18:35:52.3326102Z Getting action download info
+2024-10-30T18:35:52.5487710Z Download action repository 'actions/checkout@v4' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2024-10-30T18:35:53.2318280Z Download action repository 'azure/login@v2' (SHA:a65d910e8af852a8061c627c456678983e180302)
+2024-10-30T18:35:53.6499194Z Download action repository 'azure/powershell@v2' (SHA:53dd145408794f7e80f97cfcca04155c85234709)
+2024-10-30T18:35:55.8897844Z Complete job name: MsiAuthValidation
+2024-10-30T18:35:55.9922732Z ##[group]Run actions/checkout@v4
+2024-10-30T18:35:55.9923228Z with:
+2024-10-30T18:35:55.9923615Z   repository: Metropolitan-Council/AzInfraTest
+2024-10-30T18:35:55.9924466Z   token: ***
+2024-10-30T18:35:55.9924806Z   ssh-strict: true
+2024-10-30T18:35:55.9925242Z   ssh-user: git
+2024-10-30T18:35:55.9925575Z   persist-credentials: true
+2024-10-30T18:35:55.9925958Z   clean: true
+2024-10-30T18:35:55.9926386Z   sparse-checkout-cone-mode: true
+2024-10-30T18:35:55.9926794Z   fetch-depth: 1
+2024-10-30T18:35:55.9927125Z   fetch-tags: false
+2024-10-30T18:35:55.9927556Z   show-progress: true
+2024-10-30T18:35:55.9927906Z   lfs: false
+2024-10-30T18:35:55.9928184Z   submodules: false
+2024-10-30T18:35:55.9928616Z   set-safe-directory: true
+2024-10-30T18:35:55.9928988Z ##[endgroup]
+2024-10-30T18:35:56.1315735Z Syncing repository: Metropolitan-Council/AzInfraTest
+2024-10-30T18:35:56.1318706Z ##[group]Getting Git version info
+2024-10-30T18:35:56.1320589Z Working directory is '/home/runner/work/AzInfraTest/AzInfraTest'
+2024-10-30T18:35:56.1322073Z [command]/usr/bin/git version
+2024-10-30T18:35:56.1322808Z git version 2.47.0
+2024-10-30T18:35:56.1348794Z ##[endgroup]
+2024-10-30T18:35:56.1372820Z Temporarily overriding HOME='/home/runner/work/_temp/8bc9dfa3-b397-42b1-beae-d7e4c5d826fa' before making global git config changes
+2024-10-30T18:35:56.1374771Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-30T18:35:56.1385794Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/AzInfraTest/AzInfraTest
+2024-10-30T18:35:56.1428690Z Deleting the contents of '/home/runner/work/AzInfraTest/AzInfraTest'
+2024-10-30T18:35:56.1434425Z ##[group]Initializing the repository
+2024-10-30T18:35:56.1439931Z [command]/usr/bin/git init /home/runner/work/AzInfraTest/AzInfraTest
+2024-10-30T18:35:56.1528466Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-10-30T18:35:56.1530397Z hint: is subject to change. To configure the initial branch name to use in all
+2024-10-30T18:35:56.1531839Z hint: of your new repositories, which will suppress this warning, call:
+2024-10-30T18:35:56.1533012Z hint:
+2024-10-30T18:35:56.1534010Z hint: 	git config --global init.defaultBranch <name>
+2024-10-30T18:35:56.1534982Z hint:
+2024-10-30T18:35:56.1536257Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-10-30T18:35:56.1537803Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-10-30T18:35:56.1538751Z hint:
+2024-10-30T18:35:56.1539328Z hint: 	git branch -m <name>
+2024-10-30T18:35:56.1540966Z Initialized empty Git repository in /home/runner/work/AzInfraTest/AzInfraTest/.git/
+2024-10-30T18:35:56.1554135Z [command]/usr/bin/git remote add origin https://github.com/Metropolitan-Council/AzInfraTest
+2024-10-30T18:35:56.1592718Z ##[endgroup]
+2024-10-30T18:35:56.1594318Z ##[group]Disabling automatic garbage collection
+2024-10-30T18:35:56.1598110Z [command]/usr/bin/git config --local gc.auto 0
+2024-10-30T18:35:56.1634887Z ##[endgroup]
+2024-10-30T18:35:56.1636464Z ##[group]Setting up auth
+2024-10-30T18:35:56.1643877Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-30T18:35:56.1679763Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-30T18:35:56.2085817Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-30T18:35:56.2124442Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-30T18:35:56.3643482Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-10-30T18:35:56.3646699Z ##[endgroup]
+2024-10-30T18:35:56.3648009Z ##[group]Fetching the repository
+2024-10-30T18:35:56.3650004Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ae6f0decdc36318b59cb2ab914b292d7bd08e437:refs/remotes/origin/main
+2024-10-30T18:35:56.6736159Z From https://github.com/Metropolitan-Council/AzInfraTest
+2024-10-30T18:35:56.6737503Z  * [new ref]         ae6f0decdc36318b59cb2ab914b292d7bd08e437 -> origin/main
+2024-10-30T18:35:56.6767305Z ##[endgroup]
+2024-10-30T18:35:56.6769835Z ##[group]Determining the checkout info
+2024-10-30T18:35:56.6771595Z ##[endgroup]
+2024-10-30T18:35:56.6773581Z [command]/usr/bin/git sparse-checkout disable
+2024-10-30T18:35:56.6809580Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2024-10-30T18:35:56.6848802Z ##[group]Checking out the ref
+2024-10-30T18:35:56.6852761Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2024-10-30T18:35:56.6908078Z Switched to a new branch 'main'
+2024-10-30T18:35:56.6914661Z branch 'main' set up to track 'origin/main'.
+2024-10-30T18:35:56.6921143Z ##[endgroup]
+2024-10-30T18:35:56.6963683Z [command]/usr/bin/git log -1 --format=%H
+2024-10-30T18:35:56.7007048Z ae6f0decdc36318b59cb2ab914b292d7bd08e437
+2024-10-30T18:35:56.7352401Z ##[group]Run azure/login@v2
+2024-10-30T18:35:56.7353178Z with:
+2024-10-30T18:35:56.7353713Z   auth-type: IDENTITY
+2024-10-30T18:35:56.7354643Z   client-id: ***
+2024-10-30T18:35:56.7355415Z   tenant-id: ***
+2024-10-30T18:35:56.7356120Z   subscription-id: ***
+2024-10-30T18:35:56.7356701Z   enable-AzPSSession: true
+2024-10-30T18:35:56.7357441Z   environment: azurecloud
+2024-10-30T18:35:56.7358052Z   allow-no-subscriptions: false
+2024-10-30T18:35:56.7358773Z   audience: api://AzureADTokenExchange
+2024-10-30T18:35:56.7360047Z ##[endgroup]
+2024-10-30T18:35:56.7847456Z Running Azure CLI Login.
+2024-10-30T18:35:59.9240762Z [command]/usr/bin/az cloud set -n azurecloud
+2024-10-30T18:36:00.1666595Z Done setting cloud: "azurecloud"
+2024-10-30T18:36:00.1668130Z Attempting Azure CLI login by using user-assigned managed identity...
+2024-10-30T18:36:00.5607954Z ##[error]Failed to connect to MSI, check your managed service identity id.
+
+2024-10-30T18:36:00.7315069Z ##[error]Login failed with Error: The process '/usr/bin/az' failed with exit code 1. Double check if the 'auth-type' is correct. Refer to https://github.com/Azure/login#readme for more information.
+2024-10-30T18:36:00.7504834Z Post job cleanup.
+2024-10-30T18:36:00.7930923Z Clearing azure cli accounts from the local cache.
+2024-10-30T18:36:00.7941461Z [command]/usr/bin/az account clear
+2024-10-30T18:36:06.3347978Z {
+2024-10-30T18:36:06.3349283Z   Result: '/usr/share/az_12.1.0/Az.Accounts/3.0.4/Az.Accounts.psd1',
+2024-10-30T18:36:06.3350516Z   Success: true
+2024-10-30T18:36:06.3351157Z }
+2024-10-30T18:36:06.3352157Z Clearing azure powershell accounts from the local cache.
+2024-10-30T18:36:06.3359657Z [command]/usr/bin/pwsh -Command Clear-AzContext -Scope Process
+2024-10-30T18:36:14.9796397Z [command]/usr/bin/pwsh -Command Clear-AzContext -Scope CurrentUser -Force -ErrorAction SilentlyContinue
+2024-10-30T18:36:17.2582368Z [33;1mWARNING: You're using Az version 12.1.0. The latest version of Az is 12.4.0. Upgrade your Az modules using the following commands:
+2024-10-30T18:36:17.2584490Z   Update-PSResource Az -WhatIf    -- Simulate updating your Az modules.
+2024-10-30T18:36:17.2586029Z   Update-PSResource Az            -- Update your Az modules.[0m
+2024-10-30T18:36:17.3874850Z Post job cleanup.
+2024-10-30T18:36:17.4857989Z [command]/usr/bin/git version
+2024-10-30T18:36:17.4899065Z git version 2.47.0
+2024-10-30T18:36:17.4943555Z Temporarily overriding HOME='/home/runner/work/_temp/8bcfef49-bc89-46d3-a497-c3247db64e84' before making global git config changes
+2024-10-30T18:36:17.4945563Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-30T18:36:17.4950309Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/AzInfraTest/AzInfraTest
+2024-10-30T18:36:17.5004543Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-30T18:36:17.5047752Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-30T18:36:17.5331019Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-30T18:36:17.5360333Z http.https://github.com/.extraheader
+2024-10-30T18:36:17.5375233Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2024-10-30T18:36:17.5415589Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-30T18:36:17.6028255Z Cleaning up orphan processes
