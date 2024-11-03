@@ -1,0 +1,243 @@
+2024-10-29T17:26:31.1163348Z Current runner version: '2.320.0'
+2024-10-29T17:26:31.1173108Z Runner name: 'AzureRunnerUbuntu_748a1f99c743'
+2024-10-29T17:26:31.1174611Z Runner group name: 'Azure Runners'
+2024-10-29T17:26:31.1176062Z Machine name: 'runner'
+2024-10-29T17:26:31.1201162Z ##[group]Operating System
+2024-10-29T17:26:31.1202133Z Ubuntu
+2024-10-29T17:26:31.1202911Z 22.04.5
+2024-10-29T17:26:31.1203566Z LTS
+2024-10-29T17:26:31.1204171Z ##[endgroup]
+2024-10-29T17:26:31.1205223Z ##[group]Runner Image
+2024-10-29T17:26:31.1206068Z Image: ubuntu-22.04
+2024-10-29T17:26:31.1206895Z Version: 20241015.1.0
+2024-10-29T17:26:31.1208575Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20241015.1/images/ubuntu/Ubuntu2204-Readme.md
+2024-10-29T17:26:31.1218164Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20241015.1
+2024-10-29T17:26:31.1219772Z ##[endgroup]
+2024-10-29T17:26:31.1243385Z ##[group]GITHUB_TOKEN Permissions
+2024-10-29T17:26:31.1246402Z Actions: write
+2024-10-29T17:26:31.1247434Z Attestations: write
+2024-10-29T17:26:31.1248183Z Checks: write
+2024-10-29T17:26:31.1249073Z Contents: write
+2024-10-29T17:26:31.1249811Z Deployments: write
+2024-10-29T17:26:31.1250570Z Discussions: write
+2024-10-29T17:26:31.1251455Z Issues: write
+2024-10-29T17:26:31.1252143Z Metadata: read
+2024-10-29T17:26:31.1252974Z Packages: write
+2024-10-29T17:26:31.1253740Z Pages: write
+2024-10-29T17:26:31.1254401Z PullRequests: write
+2024-10-29T17:26:31.1255227Z RepositoryProjects: write
+2024-10-29T17:26:31.1256083Z SecurityEvents: write
+2024-10-29T17:26:31.1257064Z Statuses: write
+2024-10-29T17:26:31.1257879Z ##[endgroup]
+2024-10-29T17:26:31.1302456Z Secret source: Actions
+2024-10-29T17:26:31.1303768Z Prepare workflow directory
+2024-10-29T17:26:31.1979335Z Prepare all required actions
+2024-10-29T17:26:31.2140709Z Getting action download info
+2024-10-29T17:26:31.4249105Z Download action repository 'actions/checkout@v4' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2024-10-29T17:26:32.0463019Z Download action repository 'azure/login@v2' (SHA:a65d910e8af852a8061c627c456678983e180302)
+2024-10-29T17:26:32.4430342Z Download action repository 'azure/powershell@v2' (SHA:53dd145408794f7e80f97cfcca04155c85234709)
+2024-10-29T17:26:34.7406250Z Complete job name: AuthValidation
+2024-10-29T17:26:34.8471872Z ##[group]Run actions/checkout@v4
+2024-10-29T17:26:34.8473583Z with:
+2024-10-29T17:26:34.8474614Z   repository: Metropolitan-Council/AzInfraTest
+2024-10-29T17:26:34.8476231Z   token: ***
+2024-10-29T17:26:34.8477068Z   ssh-strict: true
+2024-10-29T17:26:34.8477672Z   ssh-user: git
+2024-10-29T17:26:34.8478255Z   persist-credentials: true
+2024-10-29T17:26:34.8479148Z   clean: true
+2024-10-29T17:26:34.8479761Z   sparse-checkout-cone-mode: true
+2024-10-29T17:26:34.8480582Z   fetch-depth: 1
+2024-10-29T17:26:34.8481164Z   fetch-tags: false
+2024-10-29T17:26:34.8481917Z   show-progress: true
+2024-10-29T17:26:34.8482564Z   lfs: false
+2024-10-29T17:26:34.8483330Z   submodules: false
+2024-10-29T17:26:34.8483968Z   set-safe-directory: true
+2024-10-29T17:26:34.8484664Z ##[endgroup]
+2024-10-29T17:26:34.9959876Z Syncing repository: Metropolitan-Council/AzInfraTest
+2024-10-29T17:26:34.9963583Z ##[group]Getting Git version info
+2024-10-29T17:26:34.9965835Z Working directory is '/home/runner/work/AzInfraTest/AzInfraTest'
+2024-10-29T17:26:34.9967690Z [command]/usr/bin/git version
+2024-10-29T17:26:34.9968714Z git version 2.47.0
+2024-10-29T17:26:34.9984835Z ##[endgroup]
+2024-10-29T17:26:35.0009215Z Temporarily overriding HOME='/home/runner/work/_temp/15638158-78e2-4456-9b28-551c05b83a45' before making global git config changes
+2024-10-29T17:26:35.0011369Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-29T17:26:35.0027028Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/AzInfraTest/AzInfraTest
+2024-10-29T17:26:35.0069746Z Deleting the contents of '/home/runner/work/AzInfraTest/AzInfraTest'
+2024-10-29T17:26:35.0074440Z ##[group]Initializing the repository
+2024-10-29T17:26:35.0079674Z [command]/usr/bin/git init /home/runner/work/AzInfraTest/AzInfraTest
+2024-10-29T17:26:35.0203899Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-10-29T17:26:35.0207096Z hint: is subject to change. To configure the initial branch name to use in all
+2024-10-29T17:26:35.0214375Z hint: of your new repositories, which will suppress this warning, call:
+2024-10-29T17:26:35.0216878Z hint:
+2024-10-29T17:26:35.0218415Z hint: 	git config --global init.defaultBranch <name>
+2024-10-29T17:26:35.0220350Z hint:
+2024-10-29T17:26:35.0222071Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-10-29T17:26:35.0224660Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-10-29T17:26:35.0226322Z hint:
+2024-10-29T17:26:35.0228022Z hint: 	git branch -m <name>
+2024-10-29T17:26:35.0229702Z Initialized empty Git repository in /home/runner/work/AzInfraTest/AzInfraTest/.git/
+2024-10-29T17:26:35.0234457Z [command]/usr/bin/git remote add origin https://github.com/Metropolitan-Council/AzInfraTest
+2024-10-29T17:26:35.0273465Z ##[endgroup]
+2024-10-29T17:26:35.0274759Z ##[group]Disabling automatic garbage collection
+2024-10-29T17:26:35.0278881Z [command]/usr/bin/git config --local gc.auto 0
+2024-10-29T17:26:35.0320727Z ##[endgroup]
+2024-10-29T17:26:35.0322543Z ##[group]Setting up auth
+2024-10-29T17:26:35.0328864Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-29T17:26:35.0369862Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-29T17:26:35.0787811Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-29T17:26:35.0792094Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-29T17:26:35.1308825Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-10-29T17:26:35.1311554Z ##[endgroup]
+2024-10-29T17:26:35.1312528Z ##[group]Fetching the repository
+2024-10-29T17:26:35.1315099Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e065c451ed300717e996d3dd3e6c6d0a6e020b32:refs/remotes/origin/main
+2024-10-29T17:26:35.5243747Z From https://github.com/Metropolitan-Council/AzInfraTest
+2024-10-29T17:26:35.5312914Z  * [new ref]         e065c451ed300717e996d3dd3e6c6d0a6e020b32 -> origin/main
+2024-10-29T17:26:35.5315584Z ##[endgroup]
+2024-10-29T17:26:35.5317123Z ##[group]Determining the checkout info
+2024-10-29T17:26:35.5318473Z ##[endgroup]
+2024-10-29T17:26:35.5319586Z [command]/usr/bin/git sparse-checkout disable
+2024-10-29T17:26:35.5322032Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2024-10-29T17:26:35.5324759Z ##[group]Checking out the ref
+2024-10-29T17:26:35.5326500Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2024-10-29T17:26:35.5328008Z Switched to a new branch 'main'
+2024-10-29T17:26:35.5329085Z branch 'main' set up to track 'origin/main'.
+2024-10-29T17:26:35.5331582Z ##[endgroup]
+2024-10-29T17:26:35.5333678Z [command]/usr/bin/git log -1 --format=%H
+2024-10-29T17:26:35.5334569Z e065c451ed300717e996d3dd3e6c6d0a6e020b32
+2024-10-29T17:26:35.5731242Z ##[group]Run azure/login@v2
+2024-10-29T17:26:35.5732018Z with:
+2024-10-29T17:26:35.5734313Z   creds: ***
+2024-10-29T17:26:35.5735400Z   enable-AzPSSession: true
+2024-10-29T17:26:35.5736136Z   environment: azurecloud
+2024-10-29T17:26:35.5736963Z   allow-no-subscriptions: false
+2024-10-29T17:26:35.5737811Z   audience: api://AzureADTokenExchange
+2024-10-29T17:26:35.5738691Z   auth-type: SERVICE_PRINCIPAL
+2024-10-29T17:26:35.5739352Z ##[endgroup]
+2024-10-29T17:26:35.6280275Z Running Azure CLI Login.
+2024-10-29T17:26:51.6046420Z [command]/usr/bin/az cloud set -n azurecloud
+2024-10-29T17:26:51.8654676Z Done setting cloud: "azurecloud"
+2024-10-29T17:26:51.8658437Z Note: Azure/login action also supports OIDC login mechanism. Refer https://github.com/azure/login#configure-a-service-principal-with-a-federated-credential-to-use-oidc-based-authentication for more details.
+2024-10-29T17:26:51.8661614Z Attempting Azure CLI login by using service principal with secret...
+2024-10-29T17:26:53.2379025Z Subscription is set successfully.
+2024-10-29T17:26:53.2381369Z Azure CLI login succeeds by using service principal with secret.
+2024-10-29T17:26:53.2383377Z Running Azure PowerShell Login.
+2024-10-29T17:26:58.5390509Z ***
+2024-10-29T17:26:58.5391403Z   Success: true,
+2024-10-29T17:26:58.5392878Z   Result: '/usr/share/az_12.1.0/Az.Accounts/3.0.4/Az.Accounts.psd1'
+2024-10-29T17:26:58.5393960Z ***
+2024-10-29T17:26:58.5400090Z Attempting Azure PowerShell login by using service principal with secret...
+2024-10-29T17:27:09.6010340Z *** Result: '', Success: true ***
+2024-10-29T17:27:09.6011611Z Running Azure PowerShell Login successfully.
+2024-10-29T17:27:09.6100874Z ##[group]Run azure/powershell@v2
+2024-10-29T17:27:09.6101274Z with:
+2024-10-29T17:27:09.6101542Z   azPSVersion: latest
+2024-10-29T17:27:09.6101900Z   inlineScript: ./AuthValidation.ps1
+2024-10-29T17:27:09.6102297Z   errorActionPreference: Stop
+2024-10-29T17:27:09.6102656Z   failOnStandardError: false
+2024-10-29T17:27:09.6103132Z   githubToken: ***
+2024-10-29T17:27:09.6103426Z ##[endgroup]
+2024-10-29T17:27:09.6817955Z Validating inputs
+2024-10-29T17:27:09.6844029Z Module Az latest installed from hostedAgentFolder
+2024-10-29T17:27:09.6845203Z Initializing Az Module
+2024-10-29T17:27:09.6891113Z [command]/usr/bin/pwsh -NoLogo -NoProfile -NonInteractive -Command Test-Path (Join-Path /usr/share az_*)
+2024-10-29T17:27:09.6944867Z [command]/usr/bin/pwsh -NoLogo -NoProfile -NonInteractive -Command $env:PSModulePath
+2024-10-29T17:27:10.1688659Z /home/runner/.local/share/powershell/Modules:/usr/local/share/powershell/Modules:/opt/microsoft/powershell/7/Modules
+2024-10-29T17:27:10.2337918Z [command]/usr/bin/pwsh -NoLogo -NoProfile -NonInteractive -Command try ***
+2024-10-29T17:27:10.2339518Z             $ErrorActionPreference = "Stop"
+2024-10-29T17:27:10.2341159Z             $WarningPreference = "SilentlyContinue"
+2024-10-29T17:27:10.2342594Z             $output = @***
+2024-10-29T17:27:10.2344782Z             $data = Get-Module -Name Az -ListAvailable | Sort-Object Version -Descending | Select-Object -First 1
+2024-10-29T17:27:10.2347413Z             $output['AzVersion'] = $data.Version.ToString()
+2024-10-29T17:27:10.2348220Z             $output['Success'] = "true"
+2024-10-29T17:27:10.2348817Z         ***
+2024-10-29T17:27:10.2349214Z         catch ***
+2024-10-29T17:27:10.2349809Z             $output['Error'] = $_.exception.Message
+2024-10-29T17:27:10.2350457Z         ***
+2024-10-29T17:27:10.2351006Z         return ConvertTo-Json $output
+2024-10-29T17:27:10.9139469Z True
+2024-10-29T17:27:12.6965855Z ***
+2024-10-29T17:27:12.6966980Z   "AzVersion": "12.1.0",
+2024-10-29T17:27:12.6967958Z   "Success": "true"
+2024-10-29T17:27:12.7016804Z ***
+2024-10-29T17:27:12.7701227Z [command]/usr/bin/pwsh -NoLogo -NoProfile -NonInteractive -Command $env:PSModulePath
+2024-10-29T17:27:13.0203106Z /usr/share:/home/runner/.local/share/powershell/Modules:/usr/local/share/powershell/Modules:/opt/microsoft/powershell/7/Modules
+2024-10-29T17:27:13.0816268Z Initializing Az Module Complete
+2024-10-29T17:27:13.0817771Z Running Az PowerShell Script
+2024-10-29T17:27:13.0834573Z [command]/usr/bin/pwsh -NoLogo -NoProfile -NonInteractive -Command /home/runner/work/_temp/5371e891-27c4-4e1c-a966-ca483769f39d.ps1
+2024-10-29T17:27:19.1088801Z [33;1mWARNING: You're using Az version 12.1.0. The latest version of Az is 12.4.0. Upgrade your Az modules using the following commands:
+2024-10-29T17:27:19.1091133Z   Update-PSResource Az -WhatIf    -- Simulate updating your Az modules.
+2024-10-29T17:27:19.1092631Z   Update-PSResource Az            -- Update your Az modules.[0m
+2024-10-29T17:27:19.3003670Z [33;1mVERBOSE: Performing the operation "Set" on target "DummyFile_1727EUTC.txt".[0m
+2024-10-29T17:27:19.5491543Z 
+2024-10-29T17:27:19.5501258Z    AccountName: testgithubstr01, ContainerName: testgithub
+2024-10-29T17:27:19.5502492Z 
+2024-10-29T17:27:19.5503910Z [32;1mName                [0m[32;1m BlobType [0m[32;1m Length         [0m[32;1m ContentType                   [0m[32;1m L[0m
+2024-10-29T17:27:19.5505464Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m a[0m
+2024-10-29T17:27:19.5506829Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m s[0m
+2024-10-29T17:27:19.5508132Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m t[0m
+2024-10-29T17:27:19.5509490Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m M[0m
+2024-10-29T17:27:19.5511347Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m o[0m
+2024-10-29T17:27:19.5512846Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m d[0m
+2024-10-29T17:27:19.5514269Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m i[0m
+2024-10-29T17:27:19.5515708Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m f[0m
+2024-10-29T17:27:19.5517075Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m i[0m
+2024-10-29T17:27:19.5518394Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m e[0m
+2024-10-29T17:27:19.5519732Z [32;1m                    [0m[32;1m          [0m[32;1m                [0m[32;1m                               [0m[32;1m d[0m
+2024-10-29T17:27:19.5521085Z [32;1m----                [0m [32;1m-------- [0m [32;1m------         [0m [32;1m-----------                   [0m [32;1m-[0m
+2024-10-29T17:27:19.5523512Z DummyFile_1727EUTC.… BlockBlob 77              application/octet-stream       2
+2024-10-29T17:27:19.5524609Z [33;1mVERBOSE: Transfer Summary
+2024-10-29T17:27:19.5525563Z --------------------------------
+2024-10-29T17:27:19.5526079Z Total:  1.
+2024-10-29T17:27:19.5526491Z Successful: 1.
+2024-10-29T17:27:19.5526948Z Failed: 0.[0m
+2024-10-29T17:27:19.7235219Z 
+2024-10-29T17:27:19.7235461Z 
+2024-10-29T17:27:19.7485212Z [32;1mICloudBlob                         : [0mMicrosoft.Azure.Storage.Blob.CloudBlockBlo
+2024-10-29T17:27:19.7487988Z                                      b
+2024-10-29T17:27:19.7492382Z [32;1mBlobType                           : [0mBlockBlob
+2024-10-29T17:27:19.7495123Z [32;1mLength                             : [0m77
+2024-10-29T17:27:19.7497413Z [32;1mIsDeleted                          : [0mFalse
+2024-10-29T17:27:19.7500157Z [32;1mBlobClient                         : [0mAzure.Storage.Blobs.BlobClient
+2024-10-29T17:27:19.7502449Z [32;1mBlobBaseClient                     : [0mAzure.Storage.Blobs.Specialized.BlockBlobC
+2024-10-29T17:27:19.7504483Z                                      lient
+2024-10-29T17:27:19.7507384Z [32;1mBlobProperties                     : [0mAzure.Storage.Blobs.Models.BlobProperties
+2024-10-29T17:27:19.7509533Z [32;1mRemainingDaysBeforePermanentDelete : [0m
+2024-10-29T17:27:19.7511978Z [32;1mContentType                        : [0mapplication/octet-stream
+2024-10-29T17:27:19.7515340Z [32;1mLastModified                       : [0m10/29/2024 17:27:19 +00:00
+2024-10-29T17:27:19.7527678Z [32;1mSnapshotTime                       : [0m
+2024-10-29T17:27:19.7528638Z [32;1mContinuationToken                  : [0m
+2024-10-29T17:27:19.7530552Z [32;1mVersionId                          : [0m
+2024-10-29T17:27:19.7531710Z [32;1mIsLatestVersion                    : [0m
+2024-10-29T17:27:19.7532696Z [32;1mAccessTier                         : [0mHot
+2024-10-29T17:27:19.7533581Z [32;1mTagCount                           : [0m0
+2024-10-29T17:27:19.7534384Z [32;1mTags                               : [0m
+2024-10-29T17:27:19.7599382Z [32;1mListBlobProperties                 : [0mAzure.Storage.Blobs.Models.BlobItem
+2024-10-29T17:27:19.7601712Z [32;1mContext                            : [0mMicrosoft.WindowsAzure.Commands.Storage.Az
+2024-10-29T17:27:19.7603105Z                                      ureStorageContext
+2024-10-29T17:27:19.7604412Z [32;1mName                               : [0mDummyFile_1727EUTC.txt
+2024-10-29T17:27:19.7702972Z 
+2024-10-29T17:27:19.7757952Z [33;1mWARNING: The output of cmdlet Get-AzStorageBlob may compromise security by showing the following secrets: Context.TableStorageAccount.Credentials.Key, Context.ConnectionString. Learn more at https://go.microsoft.com/fwlink/?linkid=2258844[0m
+2024-10-29T17:27:19.9025748Z Script execution Complete
+2024-10-29T17:27:19.9168325Z Post job cleanup.
+2024-10-29T17:27:19.9597231Z Clearing azure cli accounts from the local cache.
+2024-10-29T17:27:19.9615425Z [command]/usr/bin/az account clear
+2024-10-29T17:27:22.6690464Z ***
+2024-10-29T17:27:22.6691046Z   Success: true,
+2024-10-29T17:27:22.6692179Z   Result: '/usr/share/az_12.1.0/Az.Accounts/3.0.4/Az.Accounts.psd1'
+2024-10-29T17:27:22.6693027Z ***
+2024-10-29T17:27:22.6694090Z Clearing azure powershell accounts from the local cache.
+2024-10-29T17:27:22.6695495Z [command]/usr/bin/pwsh -Command Clear-AzContext -Scope Process
+2024-10-29T17:27:25.0671442Z [command]/usr/bin/pwsh -Command Clear-AzContext -Scope CurrentUser -Force -ErrorAction SilentlyContinue
+2024-10-29T17:27:27.4506351Z Post job cleanup.
+2024-10-29T17:27:27.5484622Z [command]/usr/bin/git version
+2024-10-29T17:27:27.5528043Z git version 2.47.0
+2024-10-29T17:27:27.5577274Z Temporarily overriding HOME='/home/runner/work/_temp/54385fd7-fada-4f62-b0e3-9e259738905f' before making global git config changes
+2024-10-29T17:27:27.5580070Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-29T17:27:27.5587964Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/AzInfraTest/AzInfraTest
+2024-10-29T17:27:27.5637807Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-29T17:27:27.5679461Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-29T17:27:27.5953517Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-29T17:27:27.5974837Z http.https://github.com/.extraheader
+2024-10-29T17:27:27.5997175Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2024-10-29T17:27:27.6048699Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-29T17:27:27.6570636Z Cleaning up orphan processes
