@@ -1,4 +1,3 @@
-function Get-CurrentTime {
     [CmdletBinding()]
     param ()
 
@@ -6,4 +5,3 @@ function Get-CurrentTime {
         $currentTime = Get-Date
         Write-Output $currentTime
     }
-}
