@@ -1,5 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg"> <title>Sprite</title>
-    <symbol id="StackOverflow"> <path d="M49 51.5V38h6v19.5H10V38h6v13.5zM42.25 2 38.2 5l14.85 19.95 4.05-3zM49 29.6 29.95 13.7l3.15-3.75 19.05 15.9zm-25.35-4.8 22.5 10.5 2.1-4.5-22.5-10.5zm21 16.185 1.02-4.425-24.15-5.025L20.5 36.5zM44.5 47h-24v-4.5h24z"/></symbol>
-    <symbol id="StackExchange"> <path d="M51 7.2H12.6a6.4 6.4 0 0 0-6.4 6.4V20h51.2v-6.4A6.4 6.4 0 0 0 51 7.2M6.2 45.6c0 3.52 2.88 6.4 6.4 6.4h25.6v9.6l9.6-9.6H51a6.4 6.4 0 0 0 6.4-6.4v-6.4H6.2zm51.2-22.4H6.2V36h51.2z"/></symbol>
-    
+<svg xmlns="http://www.w3.org/2000/svg">
+  <title>Sprite</title>
+
+  <symbol id="StackOverflow">
+    <path d="M49 51.5V38h6v19.5H10V38h6v13.5zM42.25 2 38.2 5l14.85 19.95 4.05-3zM49 29.6 29.95 13.7l3.15-3.75 19.05 15.9zm-25.35-4.8 22.5 10.5 2.1-4.5-22.5-10.5zm21 16.185 1.02-4.425-24.15-5.025L20.5 36.5zM44.5 47h-24v-4.5h24z"/>
+  </symbol>
+
+  <symbol id="StackExchange">
+    <path d="M51 7.2H12.6a6.4 6.4 0 0 0-6.4 6.4V20h51.2v-6.4A6.4 6.4 0 0 0 51 7.2M6.2 45.6c0 3.52 2.88 6.4 6.4 6.4h25.6v9.6l9.6-9.6H51a6.4 6.4 0 0 0 6.4-6.4v-6.4H6.2zm51.2-22.4H6.2V36h51.2z"/>
+  </symbol>
+
+  <!-- Renderable versions using <use> -->
+  <svg id="stackoverflow-img" viewBox="0 0 64 64" width="64" height="64">
+    <use href="#StackOverflow" />
+  </svg>
+
+  <svg id="stackexchange-img" viewBox="0 0 64 64" width="64" height="64">
+    <use href="#StackExchange" />
+  </svg>
 </svg>
