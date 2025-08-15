@@ -19,7 +19,7 @@ jobs:
 
           Get-Process | Select-Object -First 200 ProcessName, Id, CPU, WS |
             ConvertTo-Html -As Table -Title 'Processes' -PreContent "<h1>Processes (Windows runner)</h1><p>Updated $stamp</p>" |
-            Set-Content site\win\Processes.html -Encoding utf8
+            Set-Content site\win\processes.html -Encoding utf8
 
       - uses: actions/upload-pages-artifact@v3
         with:
