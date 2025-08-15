@@ -11,7 +11,11 @@ jobs:
         shell: pwsh
         run: |
           New-Item -Type Directory -Force site
-          Get-Date -Format "MMddyy:HHmmss K"
+          $utcTimeString = Get-Date -Format "MMddyy:HHmmss K"
+          $utcDateTime = [DateTimeOffset]::ParseExact($utcTimeString, "MMddyy:HHmmss K", $null)
+          $centralTimeZone = [System.TimeZoneInfo]::FindSystemTimeZoneById("America/Chicago")
+          $centralDateTime = [System.TimeZoneInfo]::ConvertTime($utcDateTime, $centralTimeZone)
+          $centralDateTime.ToString("MMddyy:HHmmss K")
           $proc = Get-Process | Select-Object ProcessName, Id, CPU, WS
           $stamp = Get-Date -Format "MMddyy:HHmmss K"
           ([TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow,[TimeZoneInfo]::FindSystemTimeZoneById('America/Chicago'))).ToString('MMddyy:HHmmss')
