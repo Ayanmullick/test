@@ -1,8 +1,6 @@
 name: Publish processes (AzPS) to Pages
-on: { workflow_dispatch: }
-
+on:  workflow_dispatch
 permissions: { pages: write, id-token: write }  # required by Pages deploy
-concurrency: { group: pages, cancel-in-progress: true }
 
 jobs:
   build:
