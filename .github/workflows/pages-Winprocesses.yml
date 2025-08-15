@@ -16,7 +16,7 @@ jobs:
           $nowCT = [TimeZoneInfo]::ConvertTime([DateTime]::UtcNow, $ctz)
           $abbr  = $ctz.IsDaylightSavingTime($nowCT) ? 'CDT' : 'CST'
           $stamp = $nowCT.ToString('MMddyy:HHmmss') + " $abbr"
-          Get-Process | Select-Object -First 20 ProcessName, Id, CPU, WS |
+          Get-Process | Sort-Object WorkingSet64 -Descending | Select-Object -First 20 ProcessName, Id, CPU, WS |
             ConvertTo-Html -As Table -Title 'Processes' -PreContent "<h1>Processes (Windows runner)</h1><p>Updated $stamp</p>" |
             Set-Content site\WinProcesses.html -Encoding utf8
 
