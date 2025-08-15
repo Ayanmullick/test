@@ -14,7 +14,7 @@ jobs:
           Get-Date -Format "MMddyy:HHmmss K"
           $proc = Get-Process | Select-Object ProcessName, Id, CPU, WS
           $stamp = Get-Date -Format "MMddyy:HHmmss K"
-          #([TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow,[TimeZoneInfo]::FindSystemTimeZoneById('America/Chicago'))).ToString('MMddyy:HHmmss')
+          ([TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow,[TimeZoneInfo]::FindSystemTimeZoneById('America/Chicago'))).ToString('MMddyy:HHmmss') -ErrorAction SilentlyContinue
           $pre = "<h1>Processes (AzPS container)</h1><p>Updated $stamp CST</p>"
           $proc | ConvertTo-Html -As Table -Title 'Processes' -PreContent $pre |Set-Content site/processes.html -Encoding utf8  #https://ayanmullick.github.io/test/processes.html
 
