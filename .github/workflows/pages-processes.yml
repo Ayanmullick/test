@@ -7,18 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/azure-powershell:latest
     steps:
-      - name: Install tzdata (noninteractive)
-        shell: bash
-        run: |
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
-          
       - name: Generate HTML
         shell: pwsh
         run: |
           New-Item -Type Directory -Force site
+          Get-Date -Format "MMddyy:HHmmss K"
           $proc = Get-Process | Select-Object ProcessName, Id, CPU, WS
-          $stamp = ([TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow,[TimeZoneInfo]::FindSystemTimeZoneById('America/Chicago'))).ToString('MMddyy:HHmmss')
+          $stamp = Get-Date -Format "MMddyy:HHmmss K"
+          #([TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow,[TimeZoneInfo]::FindSystemTimeZoneById('America/Chicago'))).ToString('MMddyy:HHmmss')
           $pre = "<h1>Processes (AzPS container)</h1><p>Updated $stamp CST</p>"
           $proc | ConvertTo-Html -As Table -Title 'Processes' -PreContent $pre |Set-Content site/processes.html -Encoding utf8  #https://ayanmullick.github.io/test/processes.html
 
