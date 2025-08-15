@@ -9,6 +9,7 @@ jobs:
       - name: Generate HTML
         shell: pwsh
         run: |
+          New-Item -Type Directory -Force site
           # Central Time via Windows zone; auto CST/CDT
           $ctz   = [TimeZoneInfo]::FindSystemTimeZoneById('Central Standard Time')
           $nowCT = [TimeZoneInfo]::ConvertTime([DateTime]::UtcNow, $ctz)
