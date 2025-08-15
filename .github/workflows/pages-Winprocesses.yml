@@ -1,29 +1,37 @@
 name: Publish processes (Windows) to Pages
 on: workflow_dispatch
-permissions: { pages: write, id-token: write }
+permissions: { pages: write, id-token: write, contents: write }
 
 jobs:
   build:
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Generate HTML
         shell: pwsh
         run: |
-          #with Pages = GitHub Actions, every deploy replaces the whole site with the uploaded artifact, so you can’t “just add one file” unless you also include the rest of the site in that artifact
-          New-Item -Type Directory -Force site\win  
-          # Central Time via Windows zone; auto CST/CDT
+          New-Item -Type Directory -Force site\win | Out-Null
           $ctz   = [TimeZoneInfo]::FindSystemTimeZoneById('Central Standard Time')
           $nowCT = [TimeZoneInfo]::ConvertTime([DateTime]::UtcNow, $ctz)
           $abbr  = $ctz.IsDaylightSavingTime($nowCT) ? 'CDT' : 'CST'
           $stamp = $nowCT.ToString('MMddyy:HHmmss') + " $abbr"
-
           Get-Process | Select-Object -First 200 ProcessName, Id, CPU, WS |
             ConvertTo-Html -As Table -Title 'Processes' -PreContent "<h1>Processes (Windows runner)</h1><p>Updated $stamp</p>" |
             Set-Content site\win\processes.html -Encoding utf8
 
       - uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
+        with: { path: site }
+
+      # NEW: also commit the generated site/ back to the repo
+      - name: Commit site/ to repo
+        shell: pwsh
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site
+          git commit -m "Update site (processes)" || echo "No changes"
+          git push
 
   deploy:
     needs: build
