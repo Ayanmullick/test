@@ -1,4 +1,3 @@
-# .github/workflows/pages-processes.yml
 name: Publish processes (AzPS) to Pages
 on: { workflow_dispatch: }
 
@@ -14,14 +13,9 @@ jobs:
         shell: pwsh
         run: |
           New-Item -Type Directory -Force site | Out-Null
-          $proc = Get-Process |
-            Sort-Object WorkingSet64 -Descending |
-            Select-Object -First 200 ProcessName, Id,
-              @{N='CPU(s)';E={$_.CPU}},
-              @{N='WS(MB)';E={[math]::Round($_.WorkingSet64/1MB,1)}}
+          $proc = Get-Process | Select-Object -First 200 ProcessName, Id,@{N='CPU(s)';E={$_.CPU}}, @{N='WS(MB)';E={[math]::Round($_.WorkingSet64/1MB,1)}}
           $pre = "<h1>Processes (AzPS container)</h1><p>Updated $(Get-Date -Format u) • Top 200 by WS</p>"
-          $proc | ConvertTo-Html -As Table -Title 'Processes' -PreContent $pre |
-            Set-Content site/index.html -Encoding utf8
+          $proc | ConvertTo-Html -As Table -Title 'Processes' -PreContent $pre |Set-Content site/pages-processes.html.html -Encoding utf8
 
       - uses: actions/upload-pages-artifact@v3
         with: { path: site }
