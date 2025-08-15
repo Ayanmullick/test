@@ -10,9 +10,9 @@ jobs:
       - name: Generate HTML
         shell: pwsh
         run: |
-          New-Item -Type Directory -Force site | Out-Null
+          New-Item -Type Directory -Force site #| Out-Null
           $proc = Get-Process | Select-Object ProcessName, Id, CPU, WS
-          $pre = "<h1>Processes (AzPS container)</h1><p>Updated $(Get-Date -Format u) • Top 200 by WS</p>"
+          $pre = "<h1>Processes (AzPS container)</h1><p>Updated $(Get-Date -Format u)</p>"
           $proc | ConvertTo-Html -As Table -Title 'Processes' -PreContent $pre |Set-Content site/processes.html -Encoding utf8  #https://ayanmullick.github.io/test/processes.html
 
       - uses: actions/upload-pages-artifact@v3
