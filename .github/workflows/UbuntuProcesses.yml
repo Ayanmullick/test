@@ -17,18 +17,16 @@ jobs:
           $abbr  = $tz.IsDaylightSavingTime($nowCT) ? 'CDT' : 'CST'
           $stamp = $nowCT.ToString('MMddyy:HHmmss') + " $abbr"
 
-          Get-Process |
-            Sort-Object WorkingSet64 -Descending |
-            Select-Object -First 200 ProcessName, Id, CPU, WS |
+          Get-Process | Sort-Object WorkingSet64 -Descending | Select-Object -First 20 ProcessName, Id, CPU, WS |
             ConvertTo-Html -As Table -Title 'Processes' -PreContent "<h1>Processes (Ubuntu runner)</h1><p>Updated $stamp</p>" |
-            Set-Content site/processes-ubuntu.html -Encoding utf8
+            Set-Content site/UbuntuProcesses.html -Encoding utf8
 
       - name: Commit file to master
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site/processes-ubuntu.html
-          git commit -m "Update site/processes-ubuntu.html (Ubuntu)" || echo "No changes"
+          git add site/UbuntuProcesses.html
+          git commit -m "Update site/UbuntuProcesses.html (Ubuntu)" || echo "No changes"
           git push
 
       - uses: actions/upload-pages-artifact@v3
