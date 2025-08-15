@@ -1,36 +1,52 @@
 name: Publish processes (AzPS) to Pages
-on:  workflow_dispatch
-permissions: { pages: write, id-token: write }  # required by Pages deploy
+on: workflow_dispatch
+permissions: { pages: write, id-token: write, contents: write }
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/azure-powershell:latest
     steps:
+      - uses: actions/checkout@v4   # pull existing site/ (e.g., site/win/...) so we don't overwrite it
+
       - name: Install tzdata (noninteractive)
         shell: bash
         run: |
           apt-get update
           DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
-          
+
       - name: Generate HTML
         shell: pwsh
         run: |
-          New-Item -Type Directory -Force site
-          $proc = Get-Process | Select-Object ProcessName, Id, CPU, WS
-          $stamp = ([TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow,[TimeZoneInfo]::FindSystemTimeZoneById('America/Chicago'))).ToString('MMddyy:HHmmss')
-          $pre = "<h1>Processes (AzPS container)</h1><p>Updated $stamp CST</p>"
-          $proc | ConvertTo-Html -As Table -Title 'Processes' -PreContent $pre |Set-Content site/processes.html -Encoding utf8  #https://ayanmullick.github.io/test/processes.html
+          New-Item -Type Directory -Force site | Out-Null
+          $ctz   = [TimeZoneInfo]::FindSystemTimeZoneById('America/Chicago')
+          $nowCT = [TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow,$ctz)
+          $abbr  = $ctz.IsDaylightSavingTime($nowCT) ? 'CDT' : 'CST'
+          $stamp = $nowCT.ToString('MMddyy:HHmmss') + " $abbr"
+
+          Get-Process | Select-Object 200 ProcessName, Id, CPU, WS |
+            ConvertTo-Html -As Table -Title 'Processes' -PreContent "<h1>Processes (AzPS container)</h1><p>Updated $stamp</p>" |
+            Set-Content site/processes.html -Encoding utf8
 
       - uses: actions/upload-pages-artifact@v3
         with: { path: site }
 
+      # Commit just the new/updated root file to the repo (keeps prior Windows page intact)
+      - name: Commit site/processes.html to repo
+        shell: pwsh
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/processes.html
+          git commit -m "Update site/processes.html (AzPS)" || echo "No changes"
+          git push
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: 
+    environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }} }
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
