@@ -9,7 +9,8 @@ jobs:
       - name: Generate HTML
         shell: pwsh
         run: |
-          New-Item -Type Directory -Force site
+          #with Pages = GitHub Actions, every deploy replaces the whole site with the uploaded artifact, so you can’t “just add one file” unless you also include the rest of the site in that artifact
+          New-Item -Type Directory -Force site\win  
           # Central Time via Windows zone; auto CST/CDT
           $ctz   = [TimeZoneInfo]::FindSystemTimeZoneById('Central Standard Time')
           $nowCT = [TimeZoneInfo]::ConvertTime([DateTime]::UtcNow, $ctz)
@@ -18,7 +19,7 @@ jobs:
 
           Get-Process | Select-Object -First 200 ProcessName, Id, CPU, WS |
             ConvertTo-Html -As Table -Title 'Processes' -PreContent "<h1>Processes (Windows runner)</h1><p>Updated $stamp</p>" |
-            Set-Content site\ProcessesWin.html -Encoding utf8
+            Set-Content site\win\Processes.html -Encoding utf8
 
       - uses: actions/upload-pages-artifact@v3
         with:
