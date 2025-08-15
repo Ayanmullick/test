@@ -24,7 +24,7 @@ jobs:
           $abbr  = $ctz.IsDaylightSavingTime($nowCT) ? 'CDT' : 'CST'
           $stamp = $nowCT.ToString('MMddyy:HHmmss') + " $abbr"
 
-          Get-Process | Select-Object 200 ProcessName, Id, CPU, WS |
+          Get-Process | Select-Object ProcessName, Id, CPU, WS |
             ConvertTo-Html -As Table -Title 'Processes' -PreContent "<h1>Processes (AzPS container)</h1><p>Updated $stamp</p>" |
             Set-Content site/processes.html -Encoding utf8
 
