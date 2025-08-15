@@ -9,18 +9,14 @@ jobs:
       - name: Generate HTML
         shell: pwsh
         run: |
-          New-Item -Type Directory -Force site\processes-win | Out-Null
-
           # Central Time via Windows zone; auto CST/CDT
           $ctz   = [TimeZoneInfo]::FindSystemTimeZoneById('Central Standard Time')
           $nowCT = [TimeZoneInfo]::ConvertTime([DateTime]::UtcNow, $ctz)
           $abbr  = $ctz.IsDaylightSavingTime($nowCT) ? 'CDT' : 'CST'
           $stamp = $nowCT.ToString('MMddyy:HHmmss') + " $abbr"
 
-          $pre = "<h1>Processes (Windows runner)</h1><p>Updated $stamp • Top 200 by WS</p>"
-
           Get-Process | Select-Object -First 200 ProcessName, Id, CPU, WS |
-            ConvertTo-Html -As Table -Title 'Processes' -PreContent $pre |
+            ConvertTo-Html -As Table -Title 'Processes' -PreContent "<h1>Processes (Windows runner)</h1><p>Updated $stamp</p>" |
             Set-Content site\ProcessesWin.html -Encoding utf8
 
       - uses: actions/upload-pages-artifact@v3
