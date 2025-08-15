@@ -7,6 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/azure-powershell:latest
     steps:
+      - name: Install tzdata (noninteractive)
+        shell: bash
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+          
       - name: Generate HTML
         shell: pwsh
         run: |
