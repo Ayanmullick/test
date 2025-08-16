@@ -1,4 +1,6 @@
-$stamp = '{0:MMddyy:HHmmss} {1}' -f ($ct=[TimeZoneInfo]::ConvertTimeFromUtc((Get-Date).ToUniversalTime(),$tz=[TimeZoneInfo]::FindSystemTimeZoneById('America/Chicago'))),($tz.IsDaylightSavingTime($ct)?'CDT':'CST')
+$tz=[TimeZoneInfo]::FindSystemTimeZoneById('America/Chicago')
+$ct=[TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow,$tz)
+$stamp='{0:MMddyy:HHmmss} {1}'-f$ct,($tz.IsDaylightSavingTime($ct)?'CDT':'CST')
 
 $null = New-Item -Path site -ItemType Directory -Force
 
