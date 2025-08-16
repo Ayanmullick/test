@@ -1,10 +1,13 @@
 name: Publish processes (Ubuntu) to Pages (script)
 on: workflow_dispatch
-permissions: { pages: write, id-token: write, contents: write }
+permissions: { contents: write, pages: write, id-token: write }
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -12,24 +15,14 @@ jobs:
         shell: pwsh
         run: ./PowerShell/ubuntuprocesses.ps1
 
-      - name: Commit file to master
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site/ubuntuprocesses2.html
-          git commit -m "Update site/ubuntuprocesses2.html (Ubuntu)" || echo "No changes"
-          git push
+      - uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: Update site/ubuntuprocesses2.html
+          file_pattern: site/ubuntuprocesses2.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - id: deployment
         uses: actions/deploy-pages@v4
