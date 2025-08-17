@@ -1,4 +1,4 @@
-Install-PSResource PSWriteHTML
+Install-PSResource PSWriteHTML -Repository PSGallery -TrustRepository -Quiet -AcceptLicense
 
 $null = New-Item -Path 'site' -ItemType Directory -Force
 $stamp = '{0:MMdd:HHmm}{1}' -f ($ct=[TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTimeOffset]::UtcNow,'America/Chicago')), ( ($ct.Offset.TotalHours -eq -5) ? 'CDT' : 'CST' )
