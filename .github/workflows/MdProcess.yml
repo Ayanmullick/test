@@ -17,7 +17,7 @@ jobs:
       - name: Install module + generate + commit (single step)
         shell: pwsh
         run: |
-          Install-PSResource FormatPowerShellToMarkdownTable -Repository PSGallery -TrustRepository -Quiet -AcceptLicense
+          Install-PSResource FormatMarkdownTable -Repository PSGallery -TrustRepository -Quiet -AcceptLicense
 
           $stamp = '{0:MMdd.HHmm}{1}' -f ($ct=[TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTimeOffset]::UtcNow,'America/Chicago')), ( ($ct.Offset.TotalHours -eq -5) ? 'CDT' : 'CST' )
           Get-Process | Sort-Object WorkingSet64 -Descending | Select-Object -First 20 ProcessName,Id,CPU,@{n='WS(MB)';e={[math]::Round($_.WorkingSet64/1MB,2)}} |
