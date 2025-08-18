@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install module + generate + commit (single step)
+      - name: Install module & generate Markdown report
         shell: pwsh
         run: |
           Install-PSResource FormatMarkdownTable -Repository PSGallery -TrustRepository -Quiet -AcceptLicense
