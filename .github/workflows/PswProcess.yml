@@ -9,5 +9,5 @@ jobs:
       - {uses: actions/checkout@v4}
       - run: pwsh ./PowerShell/PswProcess.ps1
       - {uses: stefanzweifel/git-auto-commit-action@v6, with: {commit_message: Update site/PswProcess.html, file_pattern: site/PswProcess.html}}
-      - {uses: actions/upload-pages-artifact@v3, with: {path: site}}
+      - {uses: actions/upload-pages-artifact@v3, with: {path: site}}  #Needed unless one uses classic GitHub Pages deployment from a branch
       - {id: deployment, uses: actions/deploy-pages@v4}
