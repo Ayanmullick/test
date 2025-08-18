@@ -25,5 +25,4 @@ jobs:
 
           (Get-Clipboard) -replace '(?s)^\*\*.*?\*\*\s*','' | Set-Content "reports/Process$stamp.md" -Encoding UTF8
 
-          - { uses: stefanzweifel/git-auto-commit-action@v6,
-              with: { commit_message: "Add process report [skip ci]", file_pattern: "reports/*.md" } }
+      - {uses: stefanzweifel/git-auto-commit-action@v6, with: {commit_message: "Add process report [skip ci]", file_pattern: "reports/*.md"}}
