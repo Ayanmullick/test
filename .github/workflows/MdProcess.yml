@@ -1,19 +1,11 @@
 name: Process Report
-
-on:
-  schedule:
-    - cron: "0 14 * * 0"   # 14:00 UTC 9:00 AM CDT every Sunday
-  workflow_dispatch: {}
-
-permissions:
-  contents: write
-
+on: {schedule: [{cron: "0 14 * * 0"}], workflow_dispatch: {}}  # 14:00 UTC 9:00 AM CDT every Sunday
+permissions: {contents: write}
 jobs:
   report:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
+      - {uses: actions/checkout@v4}
       - name: Install module & generate Markdown report
         shell: pwsh
         run: |
@@ -24,5 +16,4 @@ jobs:
              Format-MarkdownTableTableStyle -ShowMarkdown:$false *> $null
 
           (Get-Clipboard) -replace '(?s)^\*\*.*?\*\*\s*','' | Set-Content "reports/Process$stamp.md" -Encoding UTF8
-
       - {uses: stefanzweifel/git-auto-commit-action@v6, with: {commit_message: "Add process report [skip ci]", file_pattern: "reports/*.md"}}
