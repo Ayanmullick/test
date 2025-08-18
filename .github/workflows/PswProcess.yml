@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: {name: github-pages, url: "${{ steps.deployment.outputs.page_url }}"}
     steps:
-      - uses: actions/checkout@v4
+      - {uses: actions/checkout@v4}
       - run: pwsh ./PowerShell/PswProcess.ps1
       - {uses: stefanzweifel/git-auto-commit-action@v6, with: {commit_message: Update site/PswProcess.html, file_pattern: site/PswProcess.html}}
       - {uses: actions/upload-pages-artifact@v3, with: {path: site}}
