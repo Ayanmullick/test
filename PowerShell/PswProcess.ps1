@@ -9,7 +9,7 @@ $procs = Get-Process | Sort-Object WorkingSet64 -Descending |Select-Object -Firs
 New-HTML -TitleText "Process$stamp" -Online -FilePath 'site/PswProcess.html'{
   New-HTMLSection{New-HTMLContainer -Width auto {New-HTMLTable -DataTable $procs}}
   #Button, CSS, JS
-  New-HTMLTag -Tag 'button' -Attributes @{id='t';type='button';style='position:fixed;top:8px;right:12px;z-index:9999'}{'🌓'}
+  New-HTMLTag -Tag 'button' -Attributes @{id='t';type='button';style='position:fixed;top:8px;right:12px;z-index:9999'}{'◐'}
   Add-HTMLStyle -Content 'html.dark{background:black!important;color:white!important}html.dark *{background:transparent!important;color:inherit!important;border-color:white!important}'
   Add-HTMLScript -Placement Footer -Content 'd=document.documentElement;document.getElementById("t").onclick=()=>d.classList.toggle("dark")'
 }
