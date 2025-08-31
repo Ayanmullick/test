@@ -1,0 +1,29 @@
+{
+  "image": "ghcr.io/devcontainers/images/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers/features/powershell:1": {}
+  },
+  "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "/usr/bin/pwsh",
+
+                "workbench.sideBar.location": "right",
+                "editor.multiCursorModifier": "ctrlCmd", "editor.minimap.enabled": false, "editor.accessibilitySupport": "on", "editor.tabCompletion": "on",
+                "editor.snippetSuggestions": "bottom", "editor.suggest.snippetsPreventQuickSuggestions": true, "editor.rulers": [125],
+                "editor.bracketPairColorization.enabled": true, "editor.guides.bracketPairs": "active"
+
+            },
+  "extensions": 
+  ["ms-vscode.powershell",
+   "ibm.output-colorizer",
+   "github.copilot", "github.copilot-chat","GitHub.vscode-github-actions",
+   "ms-azuretools.vscode-azurefunctions","ms-azuretools.vscode-azureresourcegroups", "msazurermtools.azurerm-vscode-tools",
+   "ms-dotnettools.dotnet-interactive-vscode", "ms-dotnettools.vscode-dotnet-runtime","ms-toolsai.jupyter","ms-toolsai.vscode-jupyter-cell-tags"
+  ]
+        }
+  }
+}
