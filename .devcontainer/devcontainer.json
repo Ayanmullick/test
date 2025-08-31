@@ -1,6 +1,7 @@
 {
     "name": "AzPSImage",
     "image": "mcr.microsoft.com/azure-powershell:latest",
+    "hostRequirements": { "cpus": 2, "memory": "8gb", "storage": "16gb" },
     "features": {
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/github-cli:1": {}
