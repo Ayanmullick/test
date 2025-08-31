@@ -21,6 +21,10 @@
             ["ms-vscode.powershell",
              "ibm.output-colorizer",
              "github.copilot", "github.copilot-chat","GitHub.vscode-github-actions",
+                //Remove-Item Env:GITHUB_TOKEN
+                //gh auth login
+                //gh workflow list                                                      
+                //gh workflow run 'Process Report' --ref master  //GHActions extension doesn't work on the browser. GH CLI only option
              "ms-azuretools.vscode-azurefunctions","ms-azuretools.vscode-azureresourcegroups", "msazurermtools.azurerm-vscode-tools",
              "ms-dotnettools.dotnet-interactive-vscode", "ms-dotnettools.vscode-dotnet-runtime","ms-toolsai.jupyter","ms-toolsai.vscode-jupyter-cell-tags"
             ]
