@@ -2,7 +2,8 @@
     "name": "AzPSImage",
     "image": "mcr.microsoft.com/azure-powershell:latest",
     "features": {
-        "ghcr.io/devcontainers/features/git:1": {}
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {}
     },
     "customizations": {
         "vscode": {
