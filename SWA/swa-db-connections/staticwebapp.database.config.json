@@ -1,0 +1,16 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/download/v1.3.19/dab.draft.schema.json",
+  "data-source": { "database-type": "mssql", "connection-string": "@env('DATABASE_CONNECTION_STRING')" },
+  "runtime": {
+    "rest": { "enabled": true, "path": "/rest" },
+    "graphql": { "enabled": false },
+    "host": { "mode": "development", "cors": {"origins": ["http://localhost:4280"]}, 
+    "authentication": { "provider": "StaticWebApps" }}
+  },
+  "entities": {
+    "TestSales": {
+      "source": "dbo.TestSales",
+      "permissions": [{ "role": "anonymous", "actions": ["read"] }]
+    }
+  }
+}
