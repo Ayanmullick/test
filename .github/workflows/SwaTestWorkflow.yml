@@ -15,6 +15,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.SWATESTSECRET }}
           action: 'upload'
-          app_location: "/SWA"
+          app_location: "SWA"
+          data_api_location: "SWA/swa-db-connections"
           output_location: ''
           skip_app_build: true
