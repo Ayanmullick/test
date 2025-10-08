@@ -181,9 +181,9 @@ async function init() {
   logoutBtn.hidden = false;
 
   const displayName = user.userDetails || user.identityProvider || user.userId;
-  userNameElem.textContent = displayName ? `Signed in as ${displayName}` : "Signed in";
+  userNameElem.textContent = displayName ? `👤:${displayName}` : "👤";
   const roles = (user.userRoles || []).filter(role => role !== "anonymous");
-  userRolesElem.textContent = roles.length ? `(roles: ${roles.join(", ")})` : "";
+  userRolesElem.textContent = roles.length ? `🔑:${roles.join(", ")}` : "";
   authStatus.textContent = "";
   authStatus.style.color = "";
 
