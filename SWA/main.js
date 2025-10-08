@@ -36,12 +36,72 @@ async function getCurrentUser() {
   }
 }
 
+async function sleep(ms) {
+  return new Promise(res => setTimeout(res, ms));
+}
+
+async function fetchWithRetry(url, options = {}, retryOpts = {}) {
+  const {
+    retries = 5,
+    factor = 1.7,
+    minTimeout = 1000,
+    maxTimeout = 8000,
+  } = retryOpts;
+
+  let attempt = 0;
+  let lastError;
+  while (attempt <= retries) {
+    try {
+      const response = await fetch(url, options);
+      if (response.ok) {
+        return response;
+      }
+
+      // For 5xx/429, backoff and retry. For others, throw immediately.
+      const status = response.status;
+      const detail = await response.text();
+      const error = new Error(`${status} ${response.statusText}${detail ? `\n${detail}` : ""}`);
+      if ((status >= 500 && status <= 599) || status === 429) {
+        lastError = error;
+      } else {
+        throw error;
+      }
+    } catch (err) {
+      // Network/cold-start errors
+      lastError = err;
+    }
+
+    if (attempt === retries) break;
+
+    const delay = Math.min(Math.floor(minTimeout * Math.pow(factor, attempt)), maxTimeout);
+    const statusElem = document.getElementById("status");
+    if (statusElem) {
+      statusElem.textContent = `Waiting for database… retrying (${attempt + 1}/${retries}) in ${Math.ceil(delay / 1000)}s`;
+      statusElem.style.color = "";
+    }
+    await sleep(delay);
+    attempt++;
+  }
+
+  throw lastError ?? new Error("Request failed after retries");
+}
+
 async function loadData() {
   try {
-    const response = await fetch("/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10", {
-      headers: { "Cache-Control": "no-store" },
-      credentials: "include"
-    });
+    const response = await fetchWithRetry(
+      "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10",
+      {
+        headers: { "Cache-Control": "no-store" },
+        credentials: "include"
+      },
+      {
+        // A few quick retries usually cover SQL Serverless resume
+        retries: 5,
+        minTimeout: 1200,
+        maxTimeout: 8000,
+        factor: 1.8
+      }
+    );
     if (!response.ok) {
       const detail = await response.text();
       throw new Error(`${response.status} ${response.statusText}${detail ? `\n${detail}` : ""}`);
