@@ -97,8 +97,8 @@ async function loadData() {
       {
         // A few quick retries usually cover SQL Serverless resume
         retries: 5,
-        minTimeout: 1200,
-        maxTimeout: 8000,
+        minTimeout: 2000,
+        maxTimeout: 9999,
         factor: 1.8
       }
     );
