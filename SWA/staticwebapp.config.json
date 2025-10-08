@@ -1,0 +1,18 @@
+{
+  "routes": [
+    {
+      "route": "/data-api/*",
+      "allowedRoles": [
+        "authenticated"
+      ]
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "index.html",
+    "exclude": [
+      "/data-api/*",
+      "/.auth/*",
+      "/api/*"
+    ]
+  }
+}

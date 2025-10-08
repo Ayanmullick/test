@@ -6,6 +6,19 @@
   <title>dbo.TestSales</title>
 </head>
 <body>
+  <header>
+    <div id="auth-wrapper">
+      <div id="auth-info">
+        <span id="user-name"></span>
+        <span id="user-roles"></span>
+      </div>
+      <div id="auth-actions">
+        <button id="login-btn" type="button" hidden>Sign in</button>
+        <button id="logout-btn" type="button" hidden>Sign out</button>
+      </div>
+    </div>
+    <p id="auth-status"></p>
+  </header>
   <h1>dbo.TestSales</h1>
   <p>Data is fetched from the Static Web Apps <code>/data-api</code> REST endpoint.</p>
   <table border="1" cellpadding="4" cellspacing="0">
