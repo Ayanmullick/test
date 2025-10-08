@@ -42,10 +42,10 @@ async function sleep(ms) {
 
 async function fetchWithRetry(url, options = {}, retryOpts = {}) {
   const {
-    retries = 5,
-    factor = 1.7,
-    minTimeout = 1000,
-    maxTimeout = 8000,
+    retries = 8,
+    factor = 2.0,
+    minTimeout = 1500,
+    maxTimeout = 15000,
   } = retryOpts;
 
   let attempt = 0;
@@ -59,7 +59,14 @@ async function fetchWithRetry(url, options = {}, retryOpts = {}) {
 
       // For 5xx/429, backoff and retry. For others, throw immediately.
       const status = response.status;
-      const detail = await response.text();
+      let detail = await response.text();
+      try {
+        const maybeJson = JSON.parse(detail);
+        if (maybeJson && maybeJson.ActivityId) {
+          console.warn(`Data API error ActivityId: ${maybeJson.ActivityId}`);
+          detail = JSON.stringify(maybeJson);
+        }
+      } catch { /* body not JSON */ }
       const error = new Error(`${status} ${response.statusText}${detail ? `\n${detail}` : ""}`);
       if ((status >= 500 && status <= 599) || status === 429) {
         lastError = error;
@@ -73,7 +80,8 @@ async function fetchWithRetry(url, options = {}, retryOpts = {}) {
 
     if (attempt === retries) break;
 
-    const delay = Math.min(Math.floor(minTimeout * Math.pow(factor, attempt)), maxTimeout);
+    const baseDelay = Math.min(Math.floor(minTimeout * Math.pow(factor, attempt)), maxTimeout);
+    const delay = Math.floor(baseDelay * (0.7 + Math.random() * 0.6));
     const statusElem = document.getElementById("status");
     if (statusElem) {
       statusElem.textContent = `Waiting for database… retrying (${attempt + 1}/${retries}) in ${Math.ceil(delay / 1000)}s`;
@@ -95,11 +103,11 @@ async function loadData() {
         credentials: "include"
       },
       {
-        // A few quick retries usually cover SQL Serverless resume
-        retries: 5,
-        minTimeout: 2000,
-        maxTimeout: 9999,
-        factor: 1.8
+        // Wider window for SQL Serverless cold-resume
+        retries: 8,
+        minTimeout: 1500,
+        maxTimeout: 15000,
+        factor: 2.0
       }
     );
     if (!response.ok) {
