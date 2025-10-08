@@ -94,7 +94,7 @@ async function fetchWithRetry(url, options = {}, retryOpts = {}) {
   throw lastError ?? new Error("Request failed after retries");
 }
 
-async function loadData() {
+async function loadDataOnce() {
   try {
     const response = await fetchWithRetry(
       "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10",
@@ -122,18 +122,40 @@ async function loadData() {
       tbody.innerHTML = '<tr><td colspan="3">(no rows)</td></tr>';
       statusElem.textContent = "0 row(s)";
       statusElem.style.color = "";
-      return;
+      return true;
     }
     tbody.innerHTML = rows
       .map(r => `<tr><td>${r?.SaleID ?? ""}</td><td>${r?.SalesRepID ?? ""}</td><td>${r?.Amount ?? ""}</td></tr>`)
       .join("");
     statusElem.textContent = `${rows.length} row(s)`;
     statusElem.style.color = "";
+    return true;
   } catch (error) {
     document.getElementById("rows").innerHTML = "";
     const statusElem = document.getElementById("status");
     statusElem.textContent = `Error retrieving data: ${error.message ?? error}`;
     statusElem.style.color = "red";
+    return false;
+  }
+}
+
+async function loadDataUntilSuccess({ timeoutMs = 120000, minWaitMs = 3000, maxWaitMs = 10000 } = {}) {
+  const statusElem = document.getElementById("status");
+  const start = Date.now();
+  let attempt = 0;
+  while (Date.now() - start < timeoutMs) {
+    const ok = await loadDataOnce();
+    if (ok) return;
+    attempt++;
+    const backoff = Math.min(maxWaitMs, Math.floor(minWaitMs * Math.pow(1.5, attempt)));
+    if (statusElem && statusElem.style.color !== "") {
+      // Don’t show the red error color while we auto-retry
+      statusElem.style.color = "";
+    }
+    if (statusElem) {
+      statusElem.textContent = `Waking database… retrying in ${Math.ceil(backoff / 1000)}s`;
+    }
+    await sleep(backoff);
   }
 }
 
@@ -165,7 +187,7 @@ async function init() {
   authStatus.textContent = "";
   authStatus.style.color = "";
 
-  await loadData();
+  await loadDataUntilSuccess();
 }
 
 init();
