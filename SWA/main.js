@@ -1,5 +1,6 @@
 const loginBtn = document.getElementById("login-btn");
 const logoutBtn = document.getElementById("logout-btn");
+const themeToggleBtn = document.getElementById("theme-toggle");
 const authStatus = document.getElementById("auth-status");
 const userNameElem = document.getElementById("user-name");
 const userRolesElem = document.getElementById("user-roles");
@@ -11,6 +12,26 @@ loginBtn.addEventListener("click", () => {
 logoutBtn.addEventListener("click", () => {
   window.location.href = "/.auth/logout";
 });
+
+const THEME_KEY = "swa_theme";
+let currentTheme = "dark";
+const applyTheme = theme => {
+  const dark = theme === "dark";
+  document.body.style.backgroundColor = dark ? "#000" : "#fff";
+  document.body.style.color = dark ? "#fff" : "#000";
+  currentTheme = theme;
+  try { localStorage.setItem(THEME_KEY, theme); } catch {}
+};
+const initTheme = () => {
+  let stored = "dark";
+  try { stored = localStorage.getItem(THEME_KEY) || "dark"; } catch {}
+  applyTheme(stored === "light" ? "light" : "dark");
+};
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", () => {
+    applyTheme(currentTheme === "dark" ? "light" : "dark");
+  });
+}
 
 async function getCurrentUser() {
   try {
@@ -160,6 +181,8 @@ async function loadDataUntilSuccess({ timeoutMs = 120000, minWaitMs = 3000, maxW
 }
 
 async function init() {
+  // Apply saved theme first
+  initTheme();
   const user = await getCurrentUser();
   if (!user) {
     loginBtn.hidden = false;
