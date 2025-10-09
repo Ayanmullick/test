@@ -1,6 +1,6 @@
 {
   "$schema": "https://github.com/Azure/data-api-builder/releases/download/v1.3.19/dab.draft.schema.json",
-  "data-source": { "database-type": "mssql", "connection-string": "Server=tcp:@env('AzSqlServer').database.windows.net,1433;Initial Catalog=@env('AzSqlDb');Encrypt=True;TrustServerCertificate=False;Authentication=Active Directory Managed Identity;User Id=@env('AZURE_CLIENT_ID');" },
+  "data-source": { "database-type": "mssql", "connection-string": "@env('DATABASE_CONNECTION_STRING')" },
   "runtime": {
     "rest": { "enabled": true, "path": "/rest" },
     "graphql": { "enabled": false },
