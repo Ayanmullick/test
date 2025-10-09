@@ -11,6 +11,7 @@ const status = $("status");
 const THEME_KEY = "swa_theme";
 const DATA_URL =
   "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
+const RETRY_OPTS = { retries: 8, min: 1500, max: 15000, factor: 2 };
 let currentTheme = "dark";
 
 const applyTheme = theme => {
@@ -96,13 +97,45 @@ const renderRows = result => {
   }
 };
 
+const sleep = ms => new Promise(res => setTimeout(res, ms));
+
+const fetchWithRetry = async (url, options = {}) => {
+  const { retries, min, max, factor } = RETRY_OPTS;
+  let attempt = 0;
+  let lastError = null;
+  while (attempt <= retries) {
+    try {
+      const response = await fetch(url, options);
+      if (response.ok) return response;
+      const statusCode = response.status;
+      const retriable = statusCode === 429 || (statusCode >= 500 && statusCode <= 599);
+      const detail = await response.text();
+      const message = `${statusCode} ${response.statusText}${detail ? `\n${detail}` : ""}`;
+      if (!retriable || attempt === retries) throw new Error(message);
+      lastError = new Error(message);
+    } catch (error) {
+      lastError = error;
+      if (attempt === retries) break;
+    }
+    const delay = Math.min(Math.floor(min * factor ** attempt), max);
+    if (status) {
+      const retryNum = attempt + 1;
+      status.textContent = `Waking database... retrying (${retryNum}/${retries}) in ${Math.ceil(delay / 1000)}s`;
+      status.style.color = "";
+    }
+    await sleep(delay);
+    attempt += 1;
+  }
+  throw lastError || new Error("Request failed after retries");
+};
+
 const loadData = async () => {
   if (status) {
     status.textContent = "Loading data...";
     status.style.color = "";
   }
   try {
-    const response = await fetch(
+    const response = await fetchWithRetry(
       DATA_URL,
       { credentials: "include", headers: { "Cache-Control": "no-store" } }
     );
