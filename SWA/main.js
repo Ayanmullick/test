@@ -15,8 +15,8 @@ let currentTheme = "dark";
 
 const applyTheme = theme => {
   const light = theme === "light";
-  document.body.style.backgroundColor = light ? "#fff" : "#000";
-  document.body.style.color = light ? "#000" : "#fff";
+  document.body.style.backgroundColor = light ? "white" : "black";
+  document.body.style.color = light ? "black" : "white";
   currentTheme = light ? "light" : "dark";
   try { localStorage.setItem(THEME_KEY, currentTheme); } catch {}
 };
