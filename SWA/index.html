@@ -4,30 +4,38 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>dbo.TestSales</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <div id="auth-wrapper" align="right">
-      <div id="auth-actions">
-        <button id="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">◐</button>
-        <button id="login-btn" type="button" hidden aria-label="Sign in" title="Sign in">➜🚪</button>
-        <button id="logout-btn" type="button" hidden aria-label="Sign out" title="Sign out">❮❮🚪</button>
+  <input type="checkbox" id="theme-toggle-input" hidden>
+  <div class="page">
+    <header>
+      <div id="auth-wrapper" align="right">
+        <div id="auth-actions">
+          <label id="theme-toggle" for="theme-toggle-input" role="button" aria-label="Toggle theme" title="Toggle theme">◐</label>
+          <button id="login-btn" type="button" hidden aria-label="Sign in" title="Sign in">🔓</button>
+          <button id="logout-btn" type="button" hidden aria-label="Sign out" title="Sign out">
+            <svg width="16" height="16" aria-hidden="true" focusable="false">
+              <use href="icons.svg#logout-icon"></use>
+            </svg>
+          </button>
+        </div>
+        <div id="auth-info">
+          <span id="user-name"></span><br>
+          <span id="user-roles"></span>
+        </div>
       </div>
-      <div id="auth-info">
-        <span id="user-name"></span><br>
-        <span id="user-roles"></span>
-      </div>
-    </div>
-    <p id="auth-status"></p>
-  </header>
-  <h1>dbo.TestSales</h1>
-  <p>Data is fetched from the Static Web Apps <code>/data-api</code> REST endpoint.</p>
-  <table border="1" cellpadding="4" cellspacing="0">
-    <thead>
-      <tr>  <th>SaleID</th>    <th>SalesRepID</th>    <th>Amount</th>  </tr>
-    </thead>  <tbody id="rows"> <tr><td colspan="3">Loading...</td></tr>   </tbody>
-  </table>
-  <p id="status"></p>
-  <script src="main.js"></script>
+      <p id="auth-status"></p>
+    </header>
+    <h1>dbo.TestSales</h1>
+    <p>Data is fetched from the Static Web Apps <code>/data-api</code> REST endpoint.</p>
+    <table border="1" cellpadding="4" cellspacing="0">
+      <thead>
+        <tr>  <th>SaleID</th>    <th>SalesRepID</th>    <th>Amount</th>  </tr>
+      </thead>  <tbody id="rows"> <tr><td colspan="3">Loading...</td></tr>   </tbody>
+    </table>
+    <p id="status"></p>
+    <script src="main.js"></script>
+  </div>
 </body>
 </html>

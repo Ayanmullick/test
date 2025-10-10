@@ -1,0 +1,5 @@
+body{margin:0}
+.page{min-height:100vh;background-color:#000;color:#fff}
+#theme-toggle-input:checked~.page{background-color:#fff;color:#000}
+#theme-toggle{display:inline-block;padding:4px 8px;border:1px solid currentColor;border-radius:4px;cursor:pointer;
+user-select:none}

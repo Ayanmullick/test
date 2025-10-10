@@ -1,32 +1,15 @@
 const $ = id => document.getElementById(id);
 const loginBtn = $("login-btn");
 const logoutBtn = $("logout-btn");
-const themeToggleBtn = $("theme-toggle");
 const authStatus = $("auth-status");
 const userName = $("user-name");
 const userRoles = $("user-roles");
 const rows = $("rows");
 const status = $("status");
 
-const THEME_KEY = "swa_theme";
 const DATA_URL =
   "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
 const RETRY_OPTS = { retries: 8, min: 1500, max: 15000, factor: 2 };
-let currentTheme = "dark";
-
-const applyTheme = theme => {
-  const light = theme === "light";
-  document.body.style.backgroundColor = light ? "white" : "black";
-  document.body.style.color = light ? "black" : "white";
-  currentTheme = light ? "light" : "dark";
-  try { localStorage.setItem(THEME_KEY, currentTheme); } catch {}
-};
-
-const initTheme = () => {
-  let stored = "dark";
-  try { stored = localStorage.getItem(THEME_KEY) || "dark"; } catch {}
-  applyTheme(stored === "light" ? "light" : "dark");
-};
 
 const showSignedOutState = () => {
   if (loginBtn) loginBtn.hidden = false;
@@ -151,7 +134,6 @@ const loadData = async () => {
 };
 
 const init = async () => {
-  initTheme();
   const user = await fetchUser();
   if (!user) {
     showSignedOutState();
@@ -163,8 +145,4 @@ const init = async () => {
 
 loginBtn?.addEventListener("click", () => { window.location.href = "/.auth/login/aad"; });
 logoutBtn?.addEventListener("click", () => { window.location.href = "/.auth/logout"; });
-themeToggleBtn?.addEventListener("click", () => {
-  applyTheme(currentTheme === "dark" ? "light" : "dark");
-});
-
 init();
