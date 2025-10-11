@@ -13,12 +13,12 @@
       <div id="auth-wrapper" align="right">
         <div id="auth-actions">
           <label id="theme-toggle" for="theme-toggle-input" role="button" aria-label="Toggle theme" title="Toggle theme">◐</label>
-          <button id="login-btn" type="button" hidden aria-label="Sign in" title="Sign in">🔓</button>
-          <button id="logout-btn" type="button" hidden aria-label="Sign out" title="Sign out">
-            <svg width="16" height="16" aria-hidden="true" focusable="false">
+          <a id="login-btn" href="/.auth/login/aad" hidden aria-label="Sign in" title="Sign in">🔓</a>
+          <a id="logout-btn" href="/.auth/logout" hidden aria-label="Sign out" title="Sign out">
+            <svg width="16" height="16">
               <use href="icons.svg#logout-icon"></use>
             </svg>
-          </button>
+          </a>
         </div>
         <div id="auth-info">
           <span id="user-name"></span><br>
@@ -39,3 +39,4 @@
   </div>
 </body>
 </html>
+

@@ -143,6 +143,4 @@ const init = async () => {
   await loadData();
 };
 
-loginBtn?.addEventListener("click", () => { window.location.href = "/.auth/login/aad"; });
-logoutBtn?.addEventListener("click", () => { window.location.href = "/.auth/logout"; });
 init();
