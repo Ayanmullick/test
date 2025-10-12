@@ -1,14 +1,8 @@
 const $ = id => document.getElementById(id);
-const loginBtn = $("login-btn");
-const logoutBtn = $("logout-btn");
-const authStatus = $("auth-status");
-const userName = $("user-name");
-const userRoles = $("user-roles");
-const rows = $("rows");
-const status = $("status");
+const loginBtn = $("login-btn"), logoutBtn = $("logout-btn"), authStatus = $("auth-status"),
+  userName = $("user-name"), userRoles = $("user-roles"), rows = $("rows");
 
-const DATA_URL =
-  "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
+const DATA_URL = "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
 const RETRY_OPTS = { retries: 8, min: 1500, max: 15000, factor: 2 };
 
 const showSignedOutState = () => {
@@ -17,10 +11,6 @@ const showSignedOutState = () => {
   if (userName) userName.textContent = "";
   if (userRoles) userRoles.textContent = "";
   if (rows) rows.innerHTML = '<tr><td colspan="3">Sign in required.</td></tr>';
-  if (status) {
-    status.textContent = "";
-    status.style.color = "";
-  }
   if (!authStatus) return;
   if (!authStatus.textContent) authStatus.textContent = "Please sign in to view data.";
   authStatus.style.color = "";
@@ -29,10 +19,7 @@ const showSignedOutState = () => {
 const showSignedInState = user => {
   if (loginBtn) loginBtn.hidden = true;
   if (logoutBtn) logoutBtn.hidden = false;
-  if (authStatus) {
-    authStatus.textContent = "";
-    authStatus.style.color = "";
-  }
+  if (authStatus) { authStatus.textContent = ""; authStatus.style.color = ""; }
   if (userName) {
     const display = user.userDetails || user.identityProvider || user.userId || "";
     userName.textContent = display ? `👤:${display}` : "";
@@ -62,22 +49,14 @@ const renderRows = result => {
   if (!rows) return;
   if (!items.length) {
     rows.innerHTML = '<tr><td colspan="3">(no rows)</td></tr>';
-    if (status) {
-      status.textContent = "0 row(s)";
-      status.style.color = "";
-    }
+    console.log("0 row(s)");
     return;
   }
   rows.innerHTML = items.map(item => {
-    const sale = item?.SaleID ?? "";
-    const rep = item?.SalesRepID ?? "";
-    const amount = item?.Amount ?? "";
+    const sale = item?.SaleID ?? "", rep = item?.SalesRepID ?? "", amount = item?.Amount ?? "";
     return `<tr><td>${sale}</td><td>${rep}</td><td>${amount}</td></tr>`;
   }).join("");
-  if (status) {
-    status.textContent = `${items.length} row(s)`;
-    status.style.color = "";
-  }
+  console.log(`${items.length} row(s)`);
 };
 
 const sleep = ms => new Promise(res => setTimeout(res, ms));
@@ -107,15 +86,13 @@ const isNetworkError = error => error?.name === "TypeError" || error?.message ==
 
 const fetchWithRetry = async (url, options = {}) => {
   const { retries, min, max, factor } = RETRY_OPTS;
-  let attempt = 0;
-  let lastError = null;
+  let attempt = 0, lastError = null;
   while (attempt <= retries) {
     let retryReason = "";
     try {
       const response = await fetch(url, options);
       if (response.ok) return response;
-      const statusCode = response.status;
-      const detail = await response.text();
+      const statusCode = response.status, detail = await response.text();
       const message = `${statusCode} ${response.statusText}${detail ? `\n${detail}` : ""}`;
       const { shouldRetry, reason } = classifyRetry(statusCode, detail);
       if (!shouldRetry) throw new Error(message);
@@ -133,17 +110,12 @@ const fetchWithRetry = async (url, options = {}) => {
     const jitter = 0.6 + Math.random() * 0.8;
     const minDelay = lastError?.minDelay || 0;
     const delay = Math.min(Math.max(Math.floor(baseDelay * jitter), minDelay), max);
-    if (status) {
-      const retryNum = attempt + 1;
-      const reasonLabel = {
-        warm: "Waking database",
-        throttle: "Throttled by service",
-        server: "Transient server error",
-        network: "Recovering network hiccup"
-      }[retryReason] || "Retrying";
-      status.textContent = `${reasonLabel}... retrying (${retryNum}/${retries}) in ${Math.ceil(delay / 1000)}s`;
-      status.style.color = "";
-    }
+    const retryNum = attempt + 1;
+    const reasonLabel = {
+      warm: "Waking database", throttle: "Throttled by service",
+      server: "Transient server error", network: "Recovering network hiccup"
+    }[retryReason] || "Retrying";
+    console.log(`${reasonLabel}... retrying (${retryNum}/${retries}) in ${Math.ceil(delay / 1000)}s`);
     await sleep(delay);
     attempt += 1;
   }
@@ -151,32 +123,23 @@ const fetchWithRetry = async (url, options = {}) => {
 };
 
 const loadData = async () => {
-  if (status) {
-    status.textContent = "Loading data...";
-    status.style.color = "";
-  }
+  console.log("Loading data...");
   try {
     const response = await fetchWithRetry(
-      DATA_URL,
-      { credentials: "include", headers: { "Cache-Control": "no-store" } }
+      DATA_URL, { credentials: "include", headers: { "Cache-Control": "no-store" } }
     );
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
     const body = await response.json();
     renderRows(body);
   } catch (error) {
     if (rows) rows.innerHTML = "";
-    if (!status) return;
-    status.textContent = `Error retrieving data: ${error.message || error}`;
-    status.style.color = "red";
+    console.error(`Error retrieving data: ${error.message || error}`);
   }
 };
 
 const init = async () => {
   const user = await fetchUser();
-  if (!user) {
-    showSignedOutState();
-    return;
-  }
+  if (!user) { showSignedOutState(); return; }
   showSignedInState(user);
   await loadData();
 };
