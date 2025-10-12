@@ -139,7 +139,8 @@ const fetchWithRetry = async (url, options = {}) => {
         warm: "Waking database",
         throttle: "Throttled by service",
         server: "Transient server error",
-        network: "Recovering network hiccup"
+        network: "Recovering network hiccup",
+        client: "Retrying client error"
       }[retryReason] || "Retrying";
       status.textContent = `${reasonLabel}... retrying (${retryNum}/${retries}) in ${Math.ceil(delay / 1000)}s`;
       status.style.color = "";
