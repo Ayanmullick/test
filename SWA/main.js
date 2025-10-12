@@ -89,8 +89,8 @@ const classifyRetry = (statusCode, detailText = "") => {
   if (statusCode >= 500 && statusCode <= 599) {
     return { shouldRetry: true, reason: warmSignal ? "warm" : "server" };
   }
-  if (statusCode === 400 && warmSignal) {
-    return { shouldRetry: true, reason: "warm" };
+  if (statusCode === 400) {
+    return { shouldRetry: true, reason: "client" };
   }
   return { shouldRetry: false, reason: "" };
 };
