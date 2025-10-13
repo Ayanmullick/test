@@ -6,6 +6,10 @@ const rows = $("rows"), statusEl = $("status");
 
 const DATA_URL =
   "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
+
+/*If you still see the budget expire, bump BUDGET_MS to 180000–210000 or start at wait = 5000. If later you observe 502/503/504,
+add them to the transient condition in one token: if(!(r.status===400||r.status>=500))
+*/
 const BUDGET_MS = 180000, START_WAIT = 3000, MAX_WAIT = 60000, FETCH_TIMEOUT = 20000;
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
