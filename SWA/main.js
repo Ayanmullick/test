@@ -6,8 +6,13 @@ const rows = $("rows"), statusEl = $("status");
 
 const DATA_URL =
   "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
-// Backoff tuned for serverless resume; total ~1 min. Adjust to taste.
-const DELAYS = [4000, 8000, 12000, 16000, 20000];
+const BUDGET_MS = 150000, START_WAIT = 3000, MAX_WAIT = 60000, FETCH_TIMEOUT = 20000;
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const fetchT = (u, o, t = FETCH_TIMEOUT) => {
+  const c = new AbortController(), id = setTimeout(() => c.abort(), t);
+  return fetch(u, { ...o, signal: c.signal }).finally(() => clearTimeout(id));
+};
 
 const paintSignedOut = () => {
   loginBtn && (loginBtn.hidden = false); logoutBtn && (logoutBtn.hidden = true);
@@ -30,27 +35,26 @@ const paintSignedIn = u => {
   }
 };
 
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-
 const authAndLoad = async () => {
-  // Auth + UI
   try {
-    const me = await fetch("/.auth/me", { cache: "no-store", credentials: "include" });
+    const me = await fetchT("/.auth/me", { cache: "no-store", credentials: "include" });
     if (!me.ok) throw new Error(`${me.status} ${me.statusText}`);
     const u = (await me.json())?.clientPrincipal ?? null;
     if (!u) return paintSignedOut();
     paintSignedIn(u);
   } catch (e) {
     if (authStatus) authStatus.textContent = `Unable to read auth context: ${e.message || e}`,
-                    authStatus.style.color = "red";
+                    (authStatus.style.color = "red");
     return;
   }
 
-  // Data load with spaced retries on 400/500 (serverless warm-up via DAB/SWA)
   statusEl && (statusEl.textContent = "Loading data...", (statusEl.style.color = ""));
-  for (let i = 0; i <= DELAYS.length; i++) {
+  const deadline = Date.now() + BUDGET_MS;
+  let wait = START_WAIT, tries = 0;
+
+  while (Date.now() < deadline) {
     try {
-      const r = await fetch(DATA_URL, {
+      const r = await fetchT(DATA_URL, {
         credentials: "include", headers: { "Cache-Control": "no-store" }
       });
       if (r.ok) {
@@ -63,25 +67,21 @@ const authAndLoad = async () => {
         statusEl && (statusEl.textContent = `${items.length} row(s)`, (statusEl.style.color = ""));
         return;
       }
-      // TRANSIENT branch: throw so catch-path sleeps
-      if (r.status === 400 || r.status >= 500) {
-        if (i === DELAYS.length) throw new Error(`${r.status} ${r.statusText}`);
-        throw new Error("transient");
-      }
-      // Non-transient: surface immediately
-      throw new Error(`${r.status} ${r.statusText}`);
+      // Only treat 400 or 5xx as transient during cold start; otherwise fail fast
+      if (!(r.status === 400 || r.status >= 500)) throw new Error(`${r.status} ${r.statusText}`);
+      throw new Error("transient");
     } catch (e) {
-      if (i === DELAYS.length) {
+      if (Date.now() + wait >= deadline) {
         rows && (rows.innerHTML = "");
         statusEl && (statusEl.textContent = `Error retrieving data: ${e.message || e}`,
                      (statusEl.style.color = "red"));
         return;
       }
-      const wait = DELAYS[i];
+      tries++;
       statusEl && (statusEl.textContent =
-        `Waking database… (${i + 1}/${DELAYS.length}) in ${Math.ceil(wait / 1000)}s`,
-        statusEl.style.color = "");
+        `Waking database… (try ${tries}) in ${Math.ceil(wait / 1000)}s`, statusEl.style.color = "");
       await sleep(wait);
+      wait = Math.min(Math.floor(wait * 1.8), MAX_WAIT);
     }
   }
 };
