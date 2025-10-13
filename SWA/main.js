@@ -6,7 +6,7 @@ const rows = $("rows"), statusEl = $("status");
 
 const DATA_URL = "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
 
-const BUDGET_MS = 180000, START_WAIT = 3000, MAX_WAIT = 60000, FETCH_TIMEOUT = 20000;
+const BUDGET_MS = 210000, START_WAIT = 5000, MAX_WAIT = 60000, FETCH_TIMEOUT = 20000;
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
