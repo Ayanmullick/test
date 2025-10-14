@@ -11,6 +11,7 @@
     "TestSales": {
       "source": "dbo.TestSales",
       "permissions": [
+        //{ "role": "anonymous", "actions": ["read"] },
         { "role": "authenticated", "actions": ["read"] }
       ]
     }

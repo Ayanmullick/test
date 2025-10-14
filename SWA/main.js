@@ -13,17 +13,16 @@ const fetchT = async (u, o, t = FETCH_TIMEOUT) => {
   try { return await fetch(u, { ...o, signal: c.signal }); } finally { clearTimeout(id); }
 };
 
-const paintSignedOut = () => {
-  loginBtn.hidden = false; logoutBtn.hidden = true;
-  userName.textContent = userRoles.textContent = "";
-  rows.innerHTML = '<tr><td colspan="3">Sign in required.</td></tr>';
-  if (!authStatus.textContent) authStatus.textContent = "Please sign in to view data.";
-  statusEl.textContent = statusEl.style.color = "";
-};
-
-const paintSignedIn = u => {
-  loginBtn.hidden = true; logoutBtn.hidden = false;
+const updateAuthUI = u => {
+  loginBtn.hidden = !!u; logoutBtn.hidden = !u;
   authStatus.textContent = authStatus.style.color = "";
+  if (!u) {
+    userName.textContent = userRoles.textContent = "";
+    rows.innerHTML = '<tr><td colspan="3">Sign in required.</td></tr>';
+    if (!authStatus.textContent) authStatus.textContent = "Please sign in to view data.";
+    statusEl.textContent = statusEl.style.color = "";
+    return;
+  }
   const d = u.userDetails || u.identityProvider || u.userId || "";
   userName.textContent = d ? `👤:${d}` : "";
   const r = (u.userRoles || []).filter(x => x !== "anonymous");
@@ -35,8 +34,7 @@ const authorize = async () => {
     const me = await fetchT("/.auth/me", { cache: "no-store", credentials: "include" });
     if (!me.ok) throw new Error(`${me.status} ${me.statusText}`);
     const u = (await me.json())?.clientPrincipal ?? null;
-    if (!u) { paintSignedOut(); return null; }
-    paintSignedIn(u); return u;
+    updateAuthUI(u); return u;
   } catch (e) {
     authStatus.textContent = `Unable to read auth context: ${e.message || e}`;
     authStatus.style.color = "red"; return null;
