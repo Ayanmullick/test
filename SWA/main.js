@@ -4,7 +4,7 @@ const [loginBtn, logoutBtn, authStatus, userName, userRoles, rows, statusEl] =
   ["login-btn", "logout-btn", "auth-status", "user-name", "user-roles", "rows", "status"].map($);
 
 const DATA_URL = "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
-const BUDGET_MS = 210000, START_WAIT = 5000, MAX_WAIT = 60000, FETCH_TIMEOUT = 20000;
+const BUDGET_MS = 250000, START_WAIT = 5000, MAX_WAIT = 60000, FETCH_TIMEOUT = 20000;
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
