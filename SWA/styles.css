@@ -3,4 +3,4 @@ body{margin:0}
 #theme-toggle-input:checked~.page{background-color:#fff;color:#000}
 button,#auth-actions>*{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border:1px solid currentColor;border-radius:4px;color:inherit;background:transparent;cursor:pointer;user-select:none;text-decoration:none}
 #auth-actions>*[hidden]{display:none}
-svg{display:block;width:1rem;height:1rem;flex-shrink:0;fill:currentColor}
+svg{display:block;width:25px;height:25px;flex-shrink:0;fill:currentColor}

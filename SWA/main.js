@@ -1,7 +1,7 @@
 // <script type="module">
 const $ = id => document.getElementById(id);
-const [loginBtn, logoutBtn, authStatus, userName, userRoles, rows, statusEl] =
-  ["login-btn", "logout-btn", "auth-status", "user-name", "user-roles", "rows", "status"].map($);
+const [authBtn, authStatus, userName, userRoles, rows, statusEl] =
+  ["auth-btn", "auth-status", "user-name", "user-roles", "rows", "status"].map($);
 
 const DATA_URL = "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
 const BUDGET_MS = 250000, START_WAIT = 5000, MAX_WAIT = 60000, FETCH_TIMEOUT = 20000;
@@ -14,10 +14,10 @@ const fetchT = async (u, o, t = FETCH_TIMEOUT) => {
 };
 
 const updateAuthUI = u => {
-  loginBtn.hidden = !!u; logoutBtn.hidden = !u;
+  authBtn.href = u ? "/.auth/logout" : "/.auth/login/aad";
   authStatus.textContent = authStatus.style.color = "";
+  userName.textContent = userRoles.textContent = "";
   if (!u) {
-    userName.textContent = userRoles.textContent = "";
     rows.innerHTML = '<tr><td colspan="3">Sign in required.</td></tr>';
     if (!authStatus.textContent) authStatus.textContent = "Please sign in to view data.";
     statusEl.textContent = statusEl.style.color = "";
