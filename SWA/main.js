@@ -17,6 +17,7 @@ const authorize = async () => {
     authBtn.href = u ? "/.auth/logout" : "/.auth/login/aad";
     authStatus.textContent = authStatus.style.color = "";
     if (!u) return null;
+    rows.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
     userName.textContent = userRoles.textContent = "";
     const d = u.userDetails || u.identityProvider || u.userId || "";
     userName.textContent = d ? `👤:${d}` : "";
