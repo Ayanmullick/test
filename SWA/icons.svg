@@ -1,4 +1,3 @@
 <svg xmlns="http://www.w3.org/2000/svg">
-  <symbol id="logout-icon" >     <text x="0" y="13.6">🚪</text>  <text x="-1.2" y="14">⬅︎</text>  </symbol>
   <symbol id="auth-icon"><text x="-3" y="16" font-size="23" fill="currentColor">🗘</text> <text x="4" y="10.5" font-size="7">🔐</text> </symbol>
 </svg>

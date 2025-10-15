@@ -8,33 +8,21 @@ const BUDGET_MS = 250000, START_WAIT = 5000, MAX_WAIT = 60000, FETCH_TIMEOUT = 2
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-const fetchT = async (u, o, t = FETCH_TIMEOUT) => {
-  const c = new AbortController(), id = setTimeout(() => c.abort(), t);
-  try { return await fetch(u, { ...o, signal: c.signal }); } finally { clearTimeout(id); }
-};
-
-const updateAuthUI = u => {
-  authBtn.href = u ? "/.auth/logout" : "/.auth/login/aad";
-  authStatus.textContent = authStatus.style.color = "";
-  userName.textContent = userRoles.textContent = "";
-  if (!u) {
-    rows.innerHTML = '<tr><td colspan="3">Sign in required.</td></tr>';
-    if (!authStatus.textContent) authStatus.textContent = "Please sign in to view data.";
-    statusEl.textContent = statusEl.style.color = "";
-    return;
-  }
-  const d = u.userDetails || u.identityProvider || u.userId || "";
-  userName.textContent = d ? `👤:${d}` : "";
-  const r = (u.userRoles || []).filter(x => x !== "anonymous");
-  userRoles.textContent = r.length ? `🔑:${r.join(", ")}` : "";
-};
-
 const authorize = async () => {
   try {
-    const me = await fetchT("/.auth/me", { cache: "no-store", credentials: "include" });
+    const c = new AbortController(), id = setTimeout(() => c.abort(), FETCH_TIMEOUT);
+    let me; try { me = await fetch("/.auth/me", { cache: "no-store", credentials: "include", signal: c.signal }); } finally { clearTimeout(id); }
     if (!me.ok) throw new Error(`${me.status} ${me.statusText}`);
     const u = (await me.json())?.clientPrincipal ?? null;
-    updateAuthUI(u); return u;
+    authBtn.href = u ? "/.auth/logout" : "/.auth/login/aad";
+    authStatus.textContent = authStatus.style.color = "";
+    if (!u) return null;
+    userName.textContent = userRoles.textContent = "";
+    const d = u.userDetails || u.identityProvider || u.userId || "";
+    userName.textContent = d ? `👤:${d}` : "";
+    const r = (u.userRoles || []).filter(x => x !== "anonymous");
+    userRoles.textContent = r.length ? `🔑:${r.join(", ")}` : "";
+    return u;
   } catch (e) {
     authStatus.textContent = `Unable to read auth context: ${e.message || e}`;
     authStatus.style.color = "red"; return null;
@@ -46,7 +34,9 @@ const fetchDataWithRetry = async () => {
   const deadline = Date.now() + BUDGET_MS; let wait = START_WAIT, tries = 0;
   while (Date.now() < deadline) {
     try {
-      const r = await fetchT(DATA_URL, { credentials: "include", headers: { "Cache-Control": "no-store" } });
+      const c = new AbortController(), id = setTimeout(() => c.abort(), FETCH_TIMEOUT);
+      let r;
+      try { r = await fetch(DATA_URL, { credentials: "include", headers: { "Cache-Control": "no-store" }, signal: c.signal }); } finally { clearTimeout(id); }
       if (r.ok) return await r.json();
       if (!(r.status === 400 || r.status >= 500)) throw new Error(`${r.status} ${r.statusText}`);
       throw new Error("transient");
@@ -61,7 +51,7 @@ const fetchDataWithRetry = async () => {
 };
 
 const renderData = data => {
-  if (!data) { rows.innerHTML = ""; return; }
+  if (!data) return;
   const items = Array.isArray(data) ? data : data?.value || data?.items || [];
   rows.innerHTML = items.length ? items.map(x => `<tr><td>${x?.SaleID ?? ""}</td><td>${x?.SalesRepID ?? ""}</td><td>${x?.Amount ?? ""}</td></tr>`).join("") : '<tr><td colspan="3">(no rows)</td></tr>';
   statusEl.textContent = `${items.length} row(s)`; statusEl.style.color = "";
