@@ -10,20 +10,15 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 const authorize = async () => {
   try {
-    const c = new AbortController(), id = setTimeout(() => c.abort(), FETCH_TIMEOUT);
-    let me; try { me = await fetch("/.auth/me", { cache: "no-store", credentials: "include", signal: c.signal }); } finally { clearTimeout(id); }
-    if (!me.ok) throw new Error(`${me.status} ${me.statusText}`);
-    const u = (await me.json())?.clientPrincipal ?? null;
-    authBtn.href = u ? "/.auth/logout" : "/.auth/login/aad";
+    const response = await fetch("/.auth/me", { cache: "no-store", credentials: "include" });
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+    const user = (await response.json())?.clientPrincipal ?? null;
+    authBtn.href = user ? "/.auth/logout" : "/.auth/login/aad";
     authStatus.textContent = authStatus.style.color = "";
-    if (!u) return null;
-    rows.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
-    userName.textContent = userRoles.textContent = "";
-    const d = u.userDetails || u.identityProvider || u.userId || "";
-    userName.textContent = d ? `👤:${d}` : "";
-    const r = (u.userRoles || []).filter(x => x !== "anonymous");
-    userRoles.textContent = r.length ? `🔑:${r.join(", ")}` : "";
-    return u;
+    if (!user) return null;
+    userName.textContent = `👤:${user.userDetails || ''}`;
+    userRoles.textContent = `🔑:${(user.userRoles || []).join(", ")}`;
+    return user;
   } catch (e) {
     authStatus.textContent = `Unable to read auth context: ${e.message || e}`;
     authStatus.style.color = "red"; return null;
