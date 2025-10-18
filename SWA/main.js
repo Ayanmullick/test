@@ -1,7 +1,7 @@
 // <script type="module">
 const $ = id => document.getElementById(id);
-const [authBtn, authStatus, userName, userRoles, rows, statusEl] =
-  ["auth-btn", "auth-status", "user-name", "user-roles", "rows", "status"].map($);
+const [authBtn, authStatus, userDetails, userRolesList, rows, statusEl] =
+  ["auth-btn", "auth-status", "user-details", "user-roles-list", "rows", "status"].map($);
 
 const DATA_URL = "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
 const BUDGET_MS = 250000, START_WAIT = 5000, MAX_WAIT = 60000, FETCH_TIMEOUT = 20000;
@@ -16,8 +16,7 @@ const authorize = async () => {
     authBtn.href = user ? "/.auth/logout" : "/.auth/login/aad";
     authStatus.textContent = authStatus.style.color = "";
     if (!user) return null;
-    userName.textContent = `👤:${user.userDetails || ''}`;
-    userRoles.textContent = `🔑:${(user.userRoles || []).join(", ")}`;
+    [userDetails.textContent, userRolesList.textContent] = [user.userDetails || '', (user.userRoles || []).join(", ")];
     return user;
   } catch (e) {
     authStatus.textContent = `Unable to read auth context: ${e.message || e}`;
