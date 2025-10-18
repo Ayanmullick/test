@@ -26,7 +26,6 @@ const authorize = async () => {
 };
 
 const fetchDataWithRetry = async () => {
-  statusEl.textContent = "Loading data..."; statusEl.style.color = "";
   const deadline = Date.now() + BUDGET_MS; let wait = START_WAIT, tries = 0;
   while (Date.now() < deadline) {
     try {
@@ -55,6 +54,7 @@ const renderData = data => {
 
 const main = async () => {
   const user = await authorize(); if (!user) return;
+  rows.innerHTML = '<tr><td colspan="3">Loading data...</td></tr>';
   const data = await fetchDataWithRetry(); renderData(data);
 };
 
