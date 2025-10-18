@@ -26,22 +26,21 @@ const authorize = async () => {
 
 const fetchDataWithRetry = async () => {
   const deadline = Date.now() + BUDGET_MS; let wait = START_WAIT, tries = 0;
-  while (Date.now() < deadline) {
+  while (true) {
+    const now = Date.now();
+    if (now >= deadline) { statusEl.textContent = `Error retrieving data: timeout`; statusEl.style.color = "red"; return null; }
     try {
       const c = new AbortController(), id = setTimeout(() => c.abort(), FETCH_TIMEOUT);
-      let r;
-      try { r = await fetch(DATA_URL, { credentials: "include", headers: { "Cache-Control": "no-store" }, signal: c.signal }); } finally { clearTimeout(id); }
+      let r; try { r = await fetch(DATA_URL, { credentials: "include", headers: { "Cache-Control": "no-store" }, signal: c.signal }); } finally { clearTimeout(id); }
       if (r.ok) return await r.json();
       if (!(r.status === 400 || r.status >= 500)) throw new Error(`${r.status} ${r.statusText}`);
       throw new Error("transient");
     } catch (e) {
-      if (Date.now() + wait >= deadline) {
-        statusEl.textContent = `Error retrieving data: ${e.message || e}`; statusEl.style.color = "red"; return null;
-      }
+      if (now + wait >= deadline) { statusEl.textContent = `Error retrieving data: ${e.message || e}`; statusEl.style.color = "red"; return null; }
       tries++; statusEl.textContent = `Waking database… (try ${tries}) in ${Math.ceil(wait / 1000)}s`; statusEl.style.color = "";
       await sleep(wait); wait = Math.min(Math.floor(wait * 1.8), MAX_WAIT);
     }
-  } return null;
+  }
 };
 
 const renderData = data => {
