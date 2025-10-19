@@ -8,11 +8,20 @@
     "authentication": { "provider": "StaticWebApps" }}
   },
   "entities": {
-    "TestSales": {
+    /*"TestSales": {
       "source": "dbo.TestSales",
       "permissions": [
         //{ "role": "anonymous", "actions": ["read"] },
         { "role": "authenticated", "actions": ["read"] }
+      ]
+    },*/
+    "TestSalesByPrincipal": {
+      "source": {
+        "object": "Security.usp_SelectTestSalesByPrincipal",
+        "type": "stored-procedure"
+      },
+      "permissions": [
+        { "role": "authenticated", "actions": ["execute"] }
       ]
     }
   }

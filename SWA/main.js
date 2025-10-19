@@ -3,7 +3,7 @@ const $ = id => document.getElementById(id);
 const [authBtn, authStatus, userDetails, userRolesList, rows, statusEl] =
   ["auth-btn", "auth-status", "user-details", "user-roles-list", "rows", "status"].map($);
 
-const DATA_URL = "/data-api/rest/TestSales?$select=SaleID,SalesRepID,Amount&$orderby=SaleID&$first=10";
+const DATA_URL = "/data-api/rest/TestSalesByPrincipal";
 const BUDGET_MS = 250000, START_WAIT = 5000, MAX_WAIT = 60000, FETCH_TIMEOUT = 20000;
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -24,14 +24,24 @@ const authorize = async () => {
   }
 };
 
-const fetchDataWithRetry = async () => {
+const fetchDataWithRetry = async principalName => {
   const deadline = Date.now() + BUDGET_MS; let wait = START_WAIT, tries = 0;
   while (true) {
     const now = Date.now();
     if (now >= deadline) { statusEl.textContent = `Error retrieving data: timeout`; statusEl.style.color = "red"; return null; }
     try {
       const c = new AbortController(), id = setTimeout(() => c.abort(), FETCH_TIMEOUT);
-      let r; try { r = await fetch(DATA_URL, { credentials: "include", headers: { "Cache-Control": "no-store" }, signal: c.signal }); } finally { clearTimeout(id); }
+      const requestInit = {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Cache-Control": "no-store",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ PrincipalName: principalName ?? "" }),
+        signal: c.signal
+      };
+      let r; try { r = await fetch(DATA_URL, requestInit); } finally { clearTimeout(id); }
       if (r.ok) return await r.json();
       if (!(r.status === 400 || r.status >= 500)) throw new Error(`${r.status} ${r.statusText}`);
       throw new Error("transient");
@@ -53,7 +63,8 @@ const renderData = data => {
 const main = async () => {
   const user = await authorize(); if (!user) return;
   rows.innerHTML = '<tr><td colspan="3">Loading data...</td></tr>';
-  const data = await fetchDataWithRetry(); renderData(data);
+  const data = await fetchDataWithRetry(user.userDetails || user.userId || "");
+  renderData(data);
 };
 
 main();
