@@ -4,25 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>dbo.TestSales</title>
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <input type="checkbox" id="theme-toggle-input" hidden>
-  <div class="page">
+  <div>
     <header>
-      <div id="auth-wrapper" align="right">
-        <div id="auth-actions">
-          <label id="theme-toggle" for="theme-toggle-input" role="button" aria-label="Toggle theme" title="Toggle theme">◐</label>
-          <a id="auth-btn" aria-label="Log in/out" title="Log in/out">
-            <svg viewBox="0 0 16 16"><use href="icons.svg#auth-icon"></use></svg>
-          </a>
-        </div>
-        <div id="auth-info">
-          <span>👤:</span><span id="user-details"></span><br>
-          <span>🔑:</span><span id="user-roles-list"></span>
-        </div>
+      <div align="right">
+        <a id="auth-btn" aria-label="Log in/out" title="Log in/out" href="/.auth/login/aad">🔐</a><br>
+        👤: <span id="user-details"></span><br>
+        🔑: <span id="user-roles-list"></span>
+        <p id="auth-status"></p>
       </div>
-      <p id="auth-status"></p>
     </header>
     <h1>dbo.TestSales</h1>
     <p>Data is fetched from the Static Web Apps <code>/data-api</code> REST endpoint.</p>
