@@ -5,6 +5,11 @@
     "rest": { "enabled": true, "path": "/rest" },
     //"graphql": { "enabled": false },
     "host": { "mode": "development", "cors": {"origins": ["http://localhost:4280"]},
+/*"host": { "mode": "production", "authentication": { "provider": "AppService" } }
+
+"host": { "mode": "development", "cors": {"origins": ["http://localhost:4280"]}, "authentication": { "provider": "StaticWebApps" }}
+Don't use the old Static Web App provider with a development mode for Static Web App, but it is okay to use the old one.
+*/
     "authentication": { "provider": "StaticWebApps" }}
   },
   "entities": {
