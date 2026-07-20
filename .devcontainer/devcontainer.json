@@ -26,8 +26,8 @@
                 //gh auth login
                 //gh workflow list                                                      
                 //gh workflow run 'Process Report' --ref master  //GHActions extension doesn't work on the browser. GH CLI only option
-             "ms-azuretools.vscode-azurefunctions","ms-azuretools.vscode-azureresourcegroups", "msazurermtools.azurerm-vscode-tools",
-             "ms-dotnettools.dotnet-interactive-vscode", "ms-dotnettools.vscode-dotnet-runtime","ms-toolsai.jupyter","ms-toolsai.vscode-jupyter-cell-tags"
+             "ms-azuretools.vscode-azurefunctions","ms-azuretools.vscode-azureresourcegroups",
+             "ms-dotnettools.vscode-dotnet-runtime","ms-toolsai.jupyter","ms-toolsai.vscode-jupyter-cell-tags"
             ]
         }
     }
