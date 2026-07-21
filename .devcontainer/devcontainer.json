@@ -4,10 +4,9 @@
     "hostRequirements": { "cpus": 2, "memory": "8gb", "storage": "16gb" },
     "features": {
         "ghcr.io/devcontainers/features/git:1": {},
-        "ghcr.io/devcontainers/features/github-cli:1": {},
-        "ghcr.io/devcontainers/features/node:1": { "version": "lts" }
+        "ghcr.io/devcontainers/features/github-cli:1": {}
     },
-    "postCreateCommand": "bash -lc 'command -v npm >/dev/null 2>&1 || (apt-get update && apt-get install -y nodejs npm); npm install -g @openai/codex'",
+    "postCreateCommand": "pwsh -NoProfile -Command \"$env:CODEX_NON_INTERACTIVE='1'; Invoke-RestMethod https://chatgpt.com/codex/install.ps1 | Invoke-Expression\"",
     "customizations": {
         "vscode": {
             "settings": {
