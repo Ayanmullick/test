@@ -1,3 +1,16 @@
-# ...existing code...
 .MyFolder/
-# ...existing code...
+
+# Local AI/tooling workspace state
+.github/instructions/
+.github/copilot-instructions.md
+.github/prompts/
+.agents/
+.codex/
+AGENTS.md
+
+# Local private notes
+.PrivateNotes/
+
+
+# Local editor settings
+.vscode/
